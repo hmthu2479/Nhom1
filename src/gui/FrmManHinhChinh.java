@@ -12,9 +12,9 @@ import java.awt.event.MouseListener;
 public class FrmManHinhChinh extends JFrame implements ActionListener, MouseListener {
     private static final long serialVersionUID = 1;
     private FrmTrangChu frmTrangChu;
-    private FrmLinhKien frmlinhkien;
-    private FrmDanhMucLinhKien frmDanhMucLinhKien;
-    private FrmNhaCungCapLinhKien frmNhaCungCapLinhKien;
+    private FrmSanPham frmSanPham;
+    private FrmDanhMucSanPham frmDanhMucSanPham;
+    private FrmNhaCungCapSanPham frmNhaCungCapSanPham;
     private FrmNhanVien frmNhanVien;
     private FrmKhachHang frmKhachHang;
     private FrmBanHang frmBanHang;
@@ -25,9 +25,9 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
     private JPanel contentPane;
     public FrmManHinhChinh(){
         frmTrangChu =  new FrmTrangChu();
-        frmlinhkien = new FrmLinhKien();
-        frmDanhMucLinhKien = new FrmDanhMucLinhKien();
-        frmNhaCungCapLinhKien = new FrmNhaCungCapLinhKien();
+        frmSanPham = new FrmSanPham();
+        frmDanhMucSanPham = new FrmDanhMucSanPham();
+        frmNhaCungCapSanPham = new FrmNhaCungCapSanPham();
         frmNhanVien = new FrmNhanVien();
         frmKhachHang = new FrmKhachHang();
         frmBanHang = new FrmBanHang();
@@ -38,7 +38,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setTitle("HỆ THỐNG QUẢN LÝ BÁN LINH KIỆN");
+		setTitle("HỆ THỐNG QUẢN LÝ BÁN SẢN PHẨM");
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
@@ -65,34 +65,34 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         /*
         MENU LINH KIEN
          */
-        JMenu mnLinhKien = new JMenu("Linh kiện");
-        mnLinhKien.setFont(new Font("Arial", Font.PLAIN, 20));
+        JMenu mnSanPham = new JMenu("SẢN PHẨM");
+        mnSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
         // thay đổi màu chữ thành màu trắng
-        mnLinhKien.setForeground(Color.WHITE);
-        menuBar.add(mnLinhKien);
-        ImageIcon iconLK = new ImageIcon("src/icon/development2.png");
-        mnLinhKien.setIcon(iconLK);
-        JMenuItem mntmThongTinLinhKien = new JMenuItem("Thông tin linh kiện");
-        mntmThongTinLinhKien.setFont(new Font("Arial", Font.PLAIN, 20));
-        // khi  chạy chương trình lên thì sẽ hiển thị màn hình mntmThongTinLinhKien
+        mnSanPham.setForeground(Color.WHITE);
+        menuBar.add(mnSanPham);
+        ImageIcon iconsp = new ImageIcon("src/icon/development2.png");
+        mnSanPham.setIcon(iconsp);
+        JMenuItem mntmThongTinSanPham = new JMenuItem("Thông tin SẢN PHẨM");
+        mntmThongTinSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
+        // khi  chạy chương trình lên thì sẽ hiển thị màn hình mntmThongTinSanPham
 
 
 
 
 
-        mnLinhKien.add(mntmThongTinLinhKien);
+        mnSanPham.add(mntmThongTinSanPham);
         ImageIcon iconTT = new ImageIcon("src/icon/product3.png");
-        mntmThongTinLinhKien.setIcon(iconTT);
-        JMenuItem mntmDanhMuclinhKien = new JMenuItem("Danh mục");
-        mntmDanhMuclinhKien.setFont(new Font("Arial", Font.PLAIN, 20));
-        mnLinhKien.add(mntmDanhMuclinhKien);
+        mntmThongTinSanPham.setIcon(iconTT);
+        JMenuItem mntmDanhMucSanPham = new JMenuItem("Danh mục");
+        mntmDanhMucSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
+        mnSanPham.add(mntmDanhMucSanPham);
         ImageIcon iconDM = new ImageIcon("src/icon/dm2.png");
-        mntmDanhMuclinhKien.setIcon(iconDM);
+        mntmDanhMucSanPham.setIcon(iconDM);
         JMenuItem mntmNhaCungCap = new JMenuItem("Nhà cung cấp");
         mntmNhaCungCap.setFont(new Font("Arial", Font.PLAIN, 20));
         ImageIcon iconNCC = new ImageIcon("src/icon/ncc.png");
         mntmNhaCungCap.setIcon(iconNCC);
-        mnLinhKien.add(mntmNhaCungCap);
+        mnSanPham.add(mntmNhaCungCap);
          /*
         MENU KHACH HANG
          */
@@ -162,24 +162,24 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
             }
         });
         /*
-        Liên kết form thông tin linh kiện
+        Liên kết form thông tin SẢN PHẨM
          */
-        mntmThongTinLinhKien.addActionListener(new ActionListener() {
+        mntmThongTinSanPham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelBody.removeAll();
-                panelBody.add(frmlinhkien);
+                panelBody.add(frmSanPham);
                 panelBody.validate();
             }
         });
         /*
-        Liên kết form danh mục linh kiện
+        Liên kết form danh mục SẢN PHẨM
          */
-        mntmDanhMuclinhKien.addActionListener(new ActionListener() {
+        mntmDanhMucSanPham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelBody.removeAll();
-                panelBody.add(frmDanhMucLinhKien);
+                panelBody.add(frmDanhMucSanPham);
                 panelBody.validate();
             }
         });
@@ -190,7 +190,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelBody.removeAll();
-                panelBody.add(frmNhaCungCapLinhKien);
+                panelBody.add(frmNhaCungCapSanPham);
                 panelBody.validate();
             }
         });
@@ -250,7 +250,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
                 panelBody.validate();
             }
         });
-        mntmThongTinLinhKien.doClick();
+        mntmThongTinSanPham.doClick();
     }
 
 

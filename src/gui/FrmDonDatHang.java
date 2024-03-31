@@ -35,15 +35,15 @@ import dao.DonDatHangDAO;
 import dao.HoaDonDAO;
 import dao.KhachHangDAO;
 import dao.NhanVienDAO;
-import dao.LinhKienDAO;
+import dao.SanPhamDAO;
 import entity.ChiTietHoaDon;
 import entity.ChiTietHoaDon;
-import entity.DanhMucLinhKien;
+import entity.DanhMucSanPham;
 import entity.DonDatHang;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
-import entity.LinhKien;
+import entity.SanPham;
 
 public class FrmDonDatHang extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -60,7 +60,7 @@ public class FrmDonDatHang extends JPanel implements ActionListener {
 
 	private ChiTietHoaDonDAO cthd_dao;
 	private KhachHangDAO kh_dao;
-	private LinhKienDAO lk_dao;
+	private SanPhamDAO sp_dao;
 	private DanhMucDAO dm_dao;
 	private JButton btnLamMoi;
 	private JTextField txtSDT;
@@ -94,7 +94,7 @@ public class FrmDonDatHang extends JPanel implements ActionListener {
 		ddh_dao = new DonDatHangDAO();
 
 		kh_dao = new KhachHangDAO();
-		lk_dao = new LinhKienDAO();
+		sp_dao = new SanPhamDAO();
 		dm_dao = new DanhMucDAO();
 		nv_dao = new NhanVienDAO();
 		hd_dao = new HoaDonDAO();
@@ -316,7 +316,7 @@ public class FrmDonDatHang extends JPanel implements ActionListener {
 		JScrollPane scrollPane_1_1 = new JScrollPane();
 		scrollPane_1_1.setBounds(0, 526, 1540, 309);
 		add(scrollPane_1_1);
-		String[] header1 = { "Mã Linh Kiện", "Tên Linh Kiện", "Nhà Cung cấp", "Thời Gian BH", "Giá Bán", "Số Lượng", "Danh Mục"};
+		String[] header1 = { "Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Thời Gian BH", "Giá Bán", "Số Lượng", "Danh Mục"};
 		modelCTDatHang = new DefaultTableModel(header1, 0);
 		tblChiTietDatHang = new JTable(modelCTDatHang);
 		tblChiTietDatHang.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 16));

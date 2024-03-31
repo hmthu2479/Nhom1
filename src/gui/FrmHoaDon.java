@@ -26,7 +26,7 @@ import dao.DanhMucDAO;
 import dao.HoaDonDAO;
 import dao.KhachHangDAO;
 import dao.NhanVienDAO;
-import dao.LinhKienDAO;
+import dao.SanPhamDAO;
 import entity.*;
 import entity.ChiTietHoaDon;
 
@@ -42,7 +42,7 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 
 	private ChiTietHoaDonDAO cthd_dao;
 	private KhachHangDAO kh_dao;
-	private LinhKienDAO lk_dao;
+	private SanPhamDAO sp_dao;
 	private DanhMucDAO dm_dao;
 	private JButton btnLamMoi;
 	private JTextField txtSDT;
@@ -71,7 +71,7 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		setSize(new Dimension(1550, 845));
 		setLayout(null);
         kh_dao = new KhachHangDAO();
-		lk_dao = new LinhKienDAO();
+		sp_dao = new SanPhamDAO();
 		dm_dao = new DanhMucDAO();
 		nv_dao = new NhanVienDAO();
 		hd_dao = new HoaDonDAO();
@@ -216,7 +216,7 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		JScrollPane scrollPane_1_1 = new JScrollPane();
 		scrollPane_1_1.setBounds(0, 506, 1540, 329);
 		add(scrollPane_1_1);
-		String[] header = {"Mã Linh Kiện", "Tên Linh Kiện", "Nhà Cung cấp", "Thời Gian BH", "Giá Bán", "Số Lượng", "Danh Mục"};
+		String[] header = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Thời Gian BH", "Giá Bán", "Số Lượng", "Danh Mục"};
 		modelCTHoaDon = new DefaultTableModel(header, 0);
 		tblChITietHoaDon = new JTable(modelCTHoaDon);
 		tblChITietHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -270,9 +270,9 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 			NhanVien nv = nv_dao.TimNhanVien(hd.getNhanVien().getMaNhanVien());
 			ArrayList<ChiTietHoaDon> dsCT = cthd_dao.TimHoaDon(hd.getMaHoaDon());
 			for (ChiTietHoaDon ct : dsCT) {
-				ArrayList<LinhKien> dsLK = lk_dao.timmLinhKien(ct.getLinhKien().getMaLinhKien());
-				for(LinhKien lk : dsLK) {
-					tong += ct.getSoLuong() * lk.getGiaBan();
+				ArrayList<SanPham> dssp = sp_dao.timmSanPham(ct.getSanPham().getMaSanPham());
+				for(SanPham sp : dssp) {
+					tong += ct.getSoLuong() * sp.getGiaBan();
 				}
 			}
 			String TongTien = vn.format(tong)+" VND";
@@ -282,19 +282,19 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 	}
 	public void DocDuLieuCTDH(String id) {
 		ArrayList<ChiTietHoaDon> dsCT = cthd_dao.TimHoaDon(id);
-		ArrayList<DanhMucLinhKien> dsDM = dm_dao.layThongTin();
-		ArrayList<NhaCungCapLinhKien> dsNCC = ncc_DAO.layThongTin();
+		ArrayList<DanhMucSanPham> dsDM = dm_dao.layThongTin();
+		ArrayList<NhaCungCapSanPham> dsNCC = ncc_DAO.layThongTin();
 		modelCTHoaDon.setRowCount(0);
 
 		for (ChiTietHoaDon ct : dsCT) {
 			// lấy dữ liệu chi tiết hóa đơn đưa vào bảng modelCTHoaDon
-			ArrayList<LinhKien> dsLK = lk_dao.timmLinhKien(ct.getLinhKien().getMaLinhKien());
-			for (LinhKien lk : dsLK) {
-				for(DanhMucLinhKien dm: dsDM) {
-					if(dm.getMaDanhMuc().equals(lk.getDanhMucLinhKien().getMaDanhMuc())) {
-						for(NhaCungCapLinhKien ncc: dsNCC) {
-							if(ncc.getMaNhaCungCap().equals(lk.getNhaCungCapLinhKien().getMaNhaCungCap())) {
-								modelCTHoaDon.addRow(new Object[] { lk.getMaLinhKien(), lk.getTenLinhKien(), ncc.getTenNCC(), lk.getThoiGianBaoHanh(), lk.getGiaBan(),
+			ArrayList<SanPham> dssp = sp_dao.timmSanPham(ct.getSanPham().getMaSanPham());
+			for (SanPham sp : dssp) {
+				for(DanhMucSanPham dm: dsDM) {
+					if(dm.getMaDanhMuc().equals(sp.getDanhMucSanPham().getMaDanhMuc())) {
+						for(NhaCungCapSanPham ncc: dsNCC) {
+							if(ncc.getMaNhaCungCap().equals(sp.getNhaCungCapSanPham().getMaNhaCungCap())) {
+								modelCTHoaDon.addRow(new Object[] { sp.getMaSanPham(), sp.getTenSanPham(), ncc.getTenNCC(), sp.getGiaBan(),
 										ct.getSoLuong(), dm.getTenDanhMuc() });
 							}
 						}

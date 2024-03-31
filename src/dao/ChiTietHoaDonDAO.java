@@ -11,7 +11,7 @@ import connectDB.ConnectDB;
 import entity.ChiTietHoaDon;
 import entity.DonDatHang;
 import entity.HoaDon;
-import entity.LinhKien;
+import entity.SanPham;
 
 public class ChiTietHoaDonDAO{
 	public ArrayList<ChiTietHoaDon> layThongTin() {
@@ -30,10 +30,10 @@ public class ChiTietHoaDonDAO{
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
-                LinhKien lk = new LinhKien(rs.getString(1));
+                SanPham sp = new SanPham(rs.getString(1));
                 HoaDon hd = new HoaDon(rs.getString(2));
                 int soLuong = rs.getInt(3);
-                ChiTietHoaDon ct = new ChiTietHoaDon(lk,hd,soLuong);
+                ChiTietHoaDon ct = new ChiTietHoaDon(sp,hd,soLuong);
                 dsChiTietHoaDon.add(ct);
             }
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class ChiTietHoaDonDAO{
 		int n = 0;
 		try {
 			statement = con.prepareStatement(SQL);
-            statement.setString(1, ct.getLinhKien().getMaLinhKien());
+            statement.setString(1, ct.getSanPham().getMaSanPham());
             statement.setString(2, ct.getHoaDon().getMaHoaDon());
             statement.setInt(3, ct.getSoLuong());
             n = statement.executeUpdate();
@@ -82,10 +82,10 @@ public class ChiTietHoaDonDAO{
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 
-				LinhKien lk = new LinhKien(rs.getString(1));
+				SanPham sp = new SanPham(rs.getString(1));
                 HoaDon hd = new HoaDon(rs.getString(2));
                 int soLuong = rs.getInt(3);
-                ChiTietHoaDon ct = new ChiTietHoaDon(lk,hd,soLuong);
+                ChiTietHoaDon ct = new ChiTietHoaDon(sp,hd,soLuong);
                 ds.add(ct);
 
 			}
