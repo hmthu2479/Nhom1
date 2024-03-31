@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import connectDB.ConnectDB;
-import entity.DanhMucLinhKien;
+import entity.DanhMucSanPham;
 import javax.swing.*;
 
 public class DanhMucDAO {
-	public ArrayList<DanhMucLinhKien> layThongTin() {
+	public ArrayList<DanhMucSanPham> layThongTin() {
 		// TODO Auto-generated method stub
-		ArrayList<DanhMucLinhKien> dsDM = new ArrayList<DanhMucLinhKien>();
+		ArrayList<DanhMucSanPham> dsDM = new ArrayList<DanhMucSanPham>();
 		try {
 			/*
 			 * Ket noi SQL
@@ -23,14 +23,14 @@ public class DanhMucDAO {
 			/*
 			 * Thuc Thi Cau lenh SQL
 			 */
-			String SQL = "SELECT * FROM DanhMucLinhKien";
+			String SQL = "SELECT * FROM DanhMucSanPham";
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(SQL);
 			while (rs.next()) {
 				String maDM = rs.getString(1);
 				String tenDM = rs.getString(2);
 
-				DanhMucLinhKien dm = new DanhMucLinhKien(maDM, tenDM);
+				DanhMucSanPham dm = new DanhMucSanPham(maDM, tenDM);
 				dsDM.add(dm);
 			}
 		} catch (SQLException e) {
@@ -39,20 +39,20 @@ public class DanhMucDAO {
 		return dsDM;
 	}
 
-	/*public DanhMucLinhKien getDanhMucTheoTen(String TenDanhMuc) {
-		DanhMucLinhKien dm = null;
+	/*public DanhMucSanPham getDanhMucTheoTen(String TenDanhMuc) {
+		DanhMucSanPham dm = null;
 		ConnectDB.getInstance();
 		Connection connection = ConnectDB.getConnection();
 		PreparedStatement statement = null;
 		try {
-			String sql = "Select * from DanhMucMucLinhKien where tenDanhMuc=?";
+			String sql = "Select * from DanhMucMucSanPham where tenDanhMuc=?";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, TenDanhMuc);
 			ResultSet result = statement.executeQuery(sql);
 			while (result.next()) {
 				String maDM = result.getString(1);
 				String tenDM = result.getString(2);
-				dm = new DanhMucLinhKien(maDM, tenDM);
+				dm = new DanhMucSanPham(maDM, tenDM);
 			}
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -61,12 +61,12 @@ public class DanhMucDAO {
 		return dm;
 	}*/
 
-	public boolean themDanhMuc(DanhMucLinhKien dm) {
+	public boolean themDanhMuc(DanhMucSanPham dm) {
 		// TODO Auto-generated method stub
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
-		String SQL = "INSERT INTO DanhMucLinhKien VALUES(?,?)";
+		String SQL = "INSERT INTO DanhMucSanPham VALUES(?,?)";
 		int n = 0;
 		try {
 			statement = con.prepareStatement(SQL);
@@ -94,12 +94,12 @@ public class DanhMucDAO {
 		PreparedStatement statement = null;
 		int n = 0;
 		try {
-			statement = con.prepareStatement("delete from DanhMucLinhKien where maDanhMuc=? ");
+			statement = con.prepareStatement("delete from DanhMucSanPham where maDanhMuc=? ");
 			statement.setString(1, maDanhMuc);
 			n = statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Danh mục này đang có thông tin linh kiện. Không thể xóa");
+			JOptionPane.showMessageDialog(null, "Danh mục này đang có thông tin sản phẩm. Không thể xóa");
 		} finally {
 			try {
 				statement.close();
@@ -111,13 +111,13 @@ public class DanhMucDAO {
 		return n > 0;
 	}
 
-	public boolean capNhapDanhMuc(DanhMucLinhKien dm) {
+	public boolean capNhapDanhMuc(DanhMucSanPham dm) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
 		int n = 0;
 		try {
-			statement = con.prepareStatement("UPDATE DanhMucLinhKien set tenDanhMuc=? WHERE maDanhMuc=?");
+			statement = con.prepareStatement("UPDATE DanhMucSanPham set tenDanhMuc=? WHERE maDanhMuc=?");
 			statement.setString(2, dm.getMaDanhMuc());
 			statement.setString(1, dm.getTenDanhMuc());
 			n=statement.executeUpdate();
@@ -139,7 +139,7 @@ public class DanhMucDAO {
 		PreparedStatement statement = null;
 		try {
 
-			String sql = "select * from DanhMucLinhKien where maDanhMuc=?";
+			String sql = "select * from DanhMucSanPham where maDanhMuc=?";
 			statement = con.prepareStatement(sql);
 			statement.setString(1, id);
 			ResultSet rs = statement.executeQuery();

@@ -1,27 +1,27 @@
 package entity;
 
 public class ChiTietHoaDon {
-    private LinhKien linhKien;
+    private SanPham sanPham;
     private int soLuong;
     private HoaDon hoaDon;
 
     public ChiTietHoaDon() {
     }
 
-    public ChiTietHoaDon(LinhKien linhKien, HoaDon hoaDon, int soLuong) {
-        this.linhKien = linhKien;
+    public ChiTietHoaDon(SanPham sanPham, HoaDon hoaDon, int soLuong) {
+        this.sanPham = sanPham;
         this.soLuong = soLuong;
         this.hoaDon = hoaDon;
     }
 
 
 
-    public LinhKien getLinhKien() {
-        return linhKien;
+    public SanPham getSanPham() {
+        return sanPham;
     }
 
-    public void setLinhKien(LinhKien linhKien) {
-        this.linhKien = linhKien;
+    public void setSanPham(SanPham sanPham) {
+        this.sanPham = sanPham;
     }
 
     public int getSoLuong() {
@@ -43,7 +43,7 @@ public class ChiTietHoaDon {
     @Override
     public String toString() {
         return "ChiTietHoaDon{" +
-                "linhKien=" + linhKien +
+                "sanPham=" + sanPham +
                 ", soLuong=" + soLuong +
                 ", hoaDon=" + hoaDon +
                 '}';

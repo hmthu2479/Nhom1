@@ -4,18 +4,18 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import connectDB.ConnectDB;
-import entity.NhaCungCapLinhKien;
+import entity.NhaCungCapSanPham;
 
 import javax.swing.*;
 
 public class NhaCungCapDAO {
-	public ArrayList<NhaCungCapLinhKien> layThongTin() {
-		ArrayList<NhaCungCapLinhKien> dsNCC = new ArrayList<NhaCungCapLinhKien>();
+	public ArrayList<NhaCungCapSanPham> layThongTin() {
+		ArrayList<NhaCungCapSanPham> dsNCC = new ArrayList<NhaCungCapSanPham>();
 		try {
 		ConnectDB.getInstance().connect();
 		Connection con = ConnectDB.getConnection();
 
-		String sql = "select * from NhaCungCapLinhKien";
+		String sql = "select * from NhaCungCapSanPham";
 
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
@@ -25,7 +25,7 @@ public class NhaCungCapDAO {
 				String DiaChi = rs.getString(3);
 				String soDienThoai = rs.getString(4);
 
-				NhaCungCapLinhKien ncc = new NhaCungCapLinhKien(maNCC, TenNCC, DiaChi, soDienThoai);
+				NhaCungCapSanPham ncc = new NhaCungCapSanPham(maNCC, TenNCC, DiaChi, soDienThoai);
 				dsNCC.add(ncc);
 
 			}
@@ -37,12 +37,12 @@ public class NhaCungCapDAO {
 
 
 
-	public boolean ThemNhaCungCap(NhaCungCapLinhKien ncc) {
+	public boolean ThemNhaCungCap(NhaCungCapSanPham ncc) {
 		// TODO Auto-generated method stub
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
-		String SQL = "INSERT INTO NhaCungCapLinhKien VALUES(?,?,?,?)";
+		String SQL = "INSERT INTO NhaCungCapSanPham VALUES(?,?,?,?)";
 		int n = 0;
 		try {
 			statement = con.prepareStatement(SQL);
@@ -72,11 +72,11 @@ public class NhaCungCapDAO {
 		PreparedStatement statement = null;
 		int n = 0;
 		try {
-			statement = con.prepareStatement("delete from NhaCungCapLinhKien where MaNhaCungCap=? ");
+			statement = con.prepareStatement("delete from NhaCungCapSanPham where MaNhaCungCap=? ");
 			statement.setString(1, maNCC);
 			n = statement.executeUpdate();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Không thể xóa nhà cung cấp này vì có thông tin linh kiện");
+			JOptionPane.showMessageDialog(null, "Không thể xóa nhà cung cấp này vì có thông tin sản phẩm");
 		} finally {
 			try {
 				statement.close();
@@ -88,14 +88,14 @@ public class NhaCungCapDAO {
 		return n > 0;
 	}
 
-	public boolean Sua(NhaCungCapLinhKien ncc) {
+	public boolean Sua(NhaCungCapSanPham ncc) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement statement = null;
 		int n = 0;
 		try {
 			statement = con.prepareStatement(
-					"UPDATE NhaCungCapLinhKien set TenNCC=?,SoDienThoai=?,DiaChi=? WHERE MaNhaCungCap=?");
+					"UPDATE NhaCungCapSanPham set TenNCC=?,SoDienThoai=?,DiaChi=? WHERE MaNhaCungCap=?");
 			statement.setString(4, ncc.getMaNhaCungCap());
 			statement.setString(1, ncc.getTenNCC());
 			statement.setString(2, ncc.getSoDienThoai());
@@ -119,7 +119,7 @@ public class NhaCungCapDAO {
 		PreparedStatement statement = null;
 		try {
 
-			String sql = "select * from NhaCungCapLinhKien where MaNhaCungCap=?";
+			String sql = "select * from NhaCungCapSanPham where MaNhaCungCap=?";
 			statement = con.prepareStatement(sql);
 			statement.setString(1, id);
 			ResultSet rs = statement.executeQuery();
