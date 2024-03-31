@@ -6,12 +6,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/ADMIN/Downloads/Nhom1/src/lib/jcalendar-1.4.jar">
+	<classpathentry kind="lib" path="C:/Users/Admin/eclipse-workspace/jcalendar-1.4.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ADMIN/Documents/Zalo Received Files/sqljdbc42.jar">
+	<classpathentry kind="lib" path="C:/Users/Admin/eclipse-workspace/sqljdbc42.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

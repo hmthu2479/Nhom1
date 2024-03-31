@@ -19,7 +19,6 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
     private FrmKhachHang frmKhachHang;
     private FrmBanHang frmBanHang;
     private FrmHoaDon frmHoaDon;
-    private FrmDonDatHang frmDonDatHang;
 
 
     private JPanel contentPane;
@@ -32,7 +31,6 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         frmKhachHang = new FrmKhachHang();
         frmBanHang = new FrmBanHang();
         frmHoaDon = new FrmHoaDon();
-        frmDonDatHang = new FrmDonDatHang();
 
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,11 +134,6 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         mnNhanVien.add(mntmHoaDon);
         ImageIcon iconHD = new ImageIcon("src/icon/completed2.png");
         mntmHoaDon.setIcon(iconHD);
-        JMenuItem mntmDonDatHang = new JMenuItem("Xem đơn đặt hàng");
-        mntmDonDatHang.setFont(new Font("Arial", Font.PLAIN, 20));
-        mnNhanVien.add(mntmDonDatHang);
-        ImageIcon iconDDH = new ImageIcon("src/icon/order2.png");
-        mntmDonDatHang.setIcon(iconDDH);
 
         /*
         Liên kết các panel
@@ -225,17 +218,6 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
             public void actionPerformed(ActionEvent e) {
                 panelBody.removeAll();
                 panelBody.add(frmHoaDon);
-                panelBody.validate();
-            }
-        });
-        /*
-        Liên kết form đơn đặt hàng
-         */
-        mntmDonDatHang.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panelBody.removeAll();
-                panelBody.add(frmDonDatHang);
                 panelBody.validate();
             }
         });
