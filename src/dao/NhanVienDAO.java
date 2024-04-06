@@ -8,9 +8,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class NhanVienDAO {
-    //lấy danh sách nhân viên
     public ArrayList<NhanVien> layThongTin(){
         ArrayList<NhanVien> dsNhanVien = new ArrayList<NhanVien>();
         try{
@@ -34,7 +34,6 @@ public class NhanVienDAO {
         }
         return dsNhanVien;
     }
-    //thêm nhân viên
     public boolean themNhanVien(NhanVien nhanVien){
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -58,7 +57,6 @@ public class NhanVienDAO {
         }
         return n>0;
     }
-    // Xóa nhân viên
     public boolean xoaNhanVien(String maNV){
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -75,7 +73,6 @@ public class NhanVienDAO {
         }
         return n > 0;
     }
-    //sửa nhân viên
     public boolean capNhatNhanVien(NhanVien nhanVien){
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
@@ -98,6 +95,7 @@ public class NhanVienDAO {
         }
         return n>0;
     }
+
     public NhanVien TimNhanVien(String id) {
 		NhanVien nv = new NhanVien();
 		ConnectDB.getInstance();

@@ -18,14 +18,8 @@ public class KhachHangDAO {
     public ArrayList <KhachHang> layThongTin(){
         ArrayList <KhachHang> dsKhachHang = new ArrayList<KhachHang>();
         try {
-            /*
-            Ket noi SQL
-             */
             ConnectDB.getInstance().connect();
             Connection con = ConnectDB.getConnection();
-            /*
-            Thuc thi cau lenh SQL
-             */
             String SQL = "SELECT * FROM KhachHang";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(SQL);
@@ -35,8 +29,6 @@ public class KhachHangDAO {
                 String soDT = rs.getString(3);
                 String eMail = rs.getString(4);
                 String diaChi = rs.getString(5);
-
-
                KhachHang kh = new KhachHang(maKH, tenKH, soDT, eMail, diaChi);
 
                 dsKhachHang.add(kh);
@@ -68,9 +60,6 @@ public class KhachHangDAO {
 		return n>0;
 	}
 
-	/*
-    Cap nhat thong tin khach hang
-     */
 	public boolean capNhatKhachHang(KhachHang khachHang) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
@@ -91,9 +80,7 @@ public class KhachHangDAO {
 		}
 		return n > 0;
 	}
-	/*
-	Xoa thong tin khach hang
-	 */
+
 	public boolean xoaKhachHang(String maKH) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
@@ -110,9 +97,7 @@ public class KhachHangDAO {
 		}
 		return n > 0;
 	}
-	/*
-	Kiem tra ma khach hang
-	 */
+
 	public boolean kiemTraMaKH(String maKH) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();

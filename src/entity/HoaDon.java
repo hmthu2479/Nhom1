@@ -6,7 +6,6 @@ public class HoaDon {
     private String maHoaDon;
     private KhachHang khachHang;
     private NhanVien nhanVien;
-    private Date ngayGiaoDuKien;
     private Date ngayLapHD;
 
     public HoaDon() {
@@ -16,11 +15,10 @@ public class HoaDon {
         this.maHoaDon = maHoaDon;
     }
 
-    public HoaDon(String maHoaDon, KhachHang khachHang, NhanVien nhanVien, Date ngayGiaoDuKien, Date ngayLapHD) {
+    public HoaDon(String maHoaDon, KhachHang khachHang, NhanVien nhanVien, Date ngayLapHD) {
         this.maHoaDon = maHoaDon;
         this.khachHang = khachHang;
         this.nhanVien = nhanVien;
-        this.ngayGiaoDuKien = ngayGiaoDuKien;
         this.ngayLapHD = ngayLapHD;
     }
 
@@ -48,13 +46,6 @@ public class HoaDon {
         this.nhanVien = nhanVien;
     }
 
-    public Date getNgayGiaoDuKien() {
-        return ngayGiaoDuKien;
-    }
-
-    public void setNgayGiaoDuKien(Date ngayGiaoDuKien) {
-        this.ngayGiaoDuKien = ngayGiaoDuKien;
-    }
 
     public Date getNgayLapHD() {
         return ngayLapHD;
@@ -70,7 +61,6 @@ public class HoaDon {
                 "maHoaDon='" + maHoaDon + '\'' +
                 ", khachHang=" + khachHang +
                 ", nhanVien=" + nhanVien +
-                ", ngayGiaoDuKien=" + ngayGiaoDuKien +
                 ", ngayLapHD=" + ngayLapHD +
                 '}';
     }

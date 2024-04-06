@@ -28,8 +28,8 @@ public class SanPhamDAO {
                 String tensp = rs.getString(2);
                 int soLuong = rs.getInt(3);
                 double giaBan = rs.getDouble(4);
-                DanhMucSanPham danhMuc = new DanhMucSanPham(rs.getString(6));
-                NhaCungCapSanPham nhaCungCap = new NhaCungCapSanPham(rs.getString(7));
+                DanhMucSanPham danhMuc = new DanhMucSanPham(rs.getString(5));
+                NhaCungCapSanPham nhaCungCap = new NhaCungCapSanPham(rs.getString(6));
                 SanPham sp = new SanPham(masp, tensp,soLuong,giaBan,danhMuc,nhaCungCap);
                 dsSanPham.add(sp);
             }
@@ -55,8 +55,8 @@ public class SanPhamDAO {
             statement.setString(2,SanPham.getTenSanPham());
             statement.setInt(3,SanPham.getSoLuong());
             statement.setDouble(4,SanPham.getGiaBan());
-            statement.setString(6,SanPham.getDanhMucSanPham().getMaDanhMuc());
-            statement.setString(7,SanPham.getNhaCungCapSanPham().getMaNhaCungCap());
+            statement.setString(5,SanPham.getDanhMucSanPham().getMaDanhMuc());
+            statement.setString(6,SanPham.getNhaCungCapSanPham().getMaNhaCungCap());
             n = statement.executeUpdate();
 
             }catch (SQLException e){
@@ -133,9 +133,9 @@ public class SanPhamDAO {
             statement.setString(1, SanPham.getTenSanPham());
             statement.setInt(2, SanPham.getSoLuong());
             statement.setDouble(3, SanPham.getGiaBan());
-            statement.setString(5, SanPham.getDanhMucSanPham().getMaDanhMuc());
-            statement.setString(6, SanPham.getNhaCungCapSanPham().getMaNhaCungCap());
-            statement.setString(7, SanPham.getMaSanPham());
+            statement.setString(4, SanPham.getDanhMucSanPham().getMaDanhMuc());
+            statement.setString(5, SanPham.getNhaCungCapSanPham().getMaNhaCungCap());
+            statement.setString(6, SanPham.getMaSanPham());
             n = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -193,8 +193,8 @@ public class SanPhamDAO {
                 String tensp = rs.getString(2);
                 int soLuong = rs.getInt(3);
                 double giaBan = rs.getDouble(4);
-                DanhMucSanPham danhMuc = new DanhMucSanPham(rs.getString(6));
-                NhaCungCapSanPham nhaCungCap = new NhaCungCapSanPham(rs.getString(7));
+                DanhMucSanPham danhMuc = new DanhMucSanPham(rs.getString(5));
+                NhaCungCapSanPham nhaCungCap = new NhaCungCapSanPham(rs.getString(6));
                 SanPham sp = new SanPham(masp, tensp,soLuong,giaBan,danhMuc,nhaCungCap);
                 ds.add(sp);
 

@@ -12,17 +12,11 @@ import javax.swing.*;
 
 public class DanhMucDAO {
 	public ArrayList<DanhMucSanPham> layThongTin() {
-		// TODO Auto-generated method stub
 		ArrayList<DanhMucSanPham> dsDM = new ArrayList<DanhMucSanPham>();
 		try {
-			/*
-			 * Ket noi SQL
-			 */
+
 			ConnectDB.getInstance().connect();
 			Connection con = ConnectDB.getConnection();
-			/*
-			 * Thuc Thi Cau lenh SQL
-			 */
 			String SQL = "SELECT * FROM DanhMucSanPham";
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(SQL);

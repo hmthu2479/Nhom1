@@ -216,7 +216,7 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		JScrollPane scrollPane_1_1 = new JScrollPane();
 		scrollPane_1_1.setBounds(0, 506, 1540, 329);
 		add(scrollPane_1_1);
-		String[] header = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Thời Gian BH", "Giá Bán", "Số Lượng", "Danh Mục"};
+		String[] header = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Giá Bán", "Số Lượng", "Danh Mục"};
 		modelCTHoaDon = new DefaultTableModel(header, 0);
 		tblChITietHoaDon = new JTable(modelCTHoaDon);
 		tblChITietHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 16));

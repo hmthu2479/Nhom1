@@ -24,9 +24,8 @@ public class HoaDonDAO {
                 String maHoaDon = rs.getString(1);
                 KhachHang kh = new KhachHang(rs.getString(2));
                 NhanVien nv = new NhanVien(rs.getString(3));
-                Date ngayGiaoDuKien = rs.getDate(4);
-                Date ngayLapHD = rs.getDate(5);
-                HoaDon hd = new HoaDon(maHoaDon,kh,nv,ngayGiaoDuKien,ngayLapHD);
+                Date ngayLapHD = rs.getDate(4);
+                HoaDon hd = new HoaDon(maHoaDon,kh,nv,ngayLapHD);
                 dsHoaDon.add(hd);
             }
         } catch (SQLException e) {
@@ -38,7 +37,7 @@ public class HoaDonDAO {
     public boolean themHoaDon(HoaDon hd){
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
-        String sql = "INSERT INTO HoaDon VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO HoaDon VALUES (?,?,?,?)";
         int n = 0;
         PreparedStatement statement = null;
         try{
@@ -46,11 +45,9 @@ public class HoaDonDAO {
             statement.setString(1,hd.getMaHoaDon());
             statement.setString(2,hd.getKhachHang().getMaKH());
             statement.setString(3,hd.getNhanVien().getMaNhanVien());
-            LocalDate ngayGiaoDuKien, ngayLapHD;
-            ngayGiaoDuKien= hd.getNgayGiaoDuKien().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate ngayLapHD;
             ngayLapHD= hd.getNgayLapHD().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            statement.setDate(4, java.sql.Date.valueOf(ngayGiaoDuKien));
-            statement.setDate(5, java.sql.Date.valueOf(ngayLapHD));
+            statement.setDate(4, java.sql.Date.valueOf(ngayLapHD));
             n = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -89,9 +86,8 @@ public class HoaDonDAO {
                 String maHoaDon = rs.getString(1);
                 KhachHang kh = new KhachHang(rs.getString(2));
                 NhanVien nv = new NhanVien(rs.getString(3));
-                Date ngayGiaoDuKien = rs.getDate(4);
-                Date ngayLapHD = rs.getDate(5);
-                HoaDon hd = new HoaDon(maHoaDon,kh,nv,ngayGiaoDuKien,ngayLapHD);
+                Date ngayLapHD = rs.getDate(4);
+                HoaDon hd = new HoaDon(maHoaDon,kh,nv,ngayLapHD);
                 dsHoaDon.add(hd);
             }
         } catch (SQLException e) {
