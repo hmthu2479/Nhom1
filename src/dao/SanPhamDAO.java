@@ -30,7 +30,8 @@ public class SanPhamDAO {
                 double giaBan = rs.getDouble(4);
                 DanhMucSanPham danhMuc = new DanhMucSanPham(rs.getString(5));
                 NhaCungCapSanPham nhaCungCap = new NhaCungCapSanPham(rs.getString(6));
-                SanPham sp = new SanPham(masp, tensp,soLuong,giaBan,danhMuc,nhaCungCap);
+                String ke = rs.getString(7);
+                SanPham sp = new SanPham(masp, tensp,soLuong,giaBan,danhMuc,nhaCungCap,ke);
                 dsSanPham.add(sp);
             }
         }catch (SQLException e){
@@ -46,7 +47,7 @@ public class SanPhamDAO {
         ConnectDB.getInstance();
         Connection con = ConnectDB.getConnection();
         PreparedStatement statement =null;
-        String SQL = "INSERT INTO SanPham VALUES (?,?,?,?,?,?)";
+        String SQL = "INSERT INTO SanPham VALUES (?,?,?,?,?,?,?)";
         int n = 0;
         try {
 
@@ -57,6 +58,7 @@ public class SanPhamDAO {
             statement.setDouble(4,SanPham.getGiaBan());
             statement.setString(5,SanPham.getDanhMucSanPham().getMaDanhMuc());
             statement.setString(6,SanPham.getNhaCungCapSanPham().getMaNhaCungCap());
+            statement.setString(7,SanPham.getKe());
             n = statement.executeUpdate();
 
             }catch (SQLException e){
@@ -136,6 +138,7 @@ public class SanPhamDAO {
             statement.setString(4, SanPham.getDanhMucSanPham().getMaDanhMuc());
             statement.setString(5, SanPham.getNhaCungCapSanPham().getMaNhaCungCap());
             statement.setString(6, SanPham.getMaSanPham());
+            statement.setString(7, SanPham.getKe());
             n = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -195,7 +198,8 @@ public class SanPhamDAO {
                 double giaBan = rs.getDouble(4);
                 DanhMucSanPham danhMuc = new DanhMucSanPham(rs.getString(5));
                 NhaCungCapSanPham nhaCungCap = new NhaCungCapSanPham(rs.getString(6));
-                SanPham sp = new SanPham(masp, tensp,soLuong,giaBan,danhMuc,nhaCungCap);
+                String ke = rs.getString(7);
+                SanPham sp = new SanPham(masp, tensp,soLuong,giaBan,danhMuc,nhaCungCap,ke);
                 ds.add(sp);
 
 			}

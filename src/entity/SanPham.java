@@ -7,81 +7,91 @@ public class SanPham {
     private double giaBan;
     private DanhMucSanPham danhMucSanPham;
     private NhaCungCapSanPham nhaCungCapSanPham;
+    private String ke;
 
-    public SanPham(String maSanPham, String tenSanPham, int soLuong, double giaBan, DanhMucSanPham danhMucSanPham, NhaCungCapSanPham nhaCungCapSanPham) {
-        this.maSanPham = maSanPham;
-        this.tenSanPham = tenSanPham;
-        this.soLuong = soLuong;
-        this.giaBan = giaBan;
-        this.danhMucSanPham = danhMucSanPham;
-        this.nhaCungCapSanPham = nhaCungCapSanPham;
-    }
+    
+    public SanPham(String maSanPham, String tenSanPham, int soLuong, double giaBan, DanhMucSanPham danhMucSanPham,
+			NhaCungCapSanPham nhaCungCapSanPham, String ke) {
+		super();
+		this.maSanPham = maSanPham;
+		this.tenSanPham = tenSanPham;
+		this.soLuong = soLuong;
+		this.giaBan = giaBan;
+		this.danhMucSanPham = danhMucSanPham;
+		this.nhaCungCapSanPham = nhaCungCapSanPham;
+		this.ke = ke;
+	}
 
-    public SanPham(String maSanPham) {
+	public SanPham(String maSanPham) {
         this.maSanPham = maSanPham;
     }
 
     public SanPham() {
     }
 
-    public String getMaSanPham() {
-        return maSanPham;
-    }
+	public String getMaSanPham() {
+		return maSanPham;
+	}
 
-    public void setMaSanPham(String maSanPham) {
-        this.maSanPham = maSanPham;
-    }
+	public void setMaSanPham(String maSanPham) {
+		this.maSanPham = maSanPham;
+	}
 
-    public String getTenSanPham() {
-        return tenSanPham;
-    }
+	public String getTenSanPham() {
+		return tenSanPham;
+	}
 
-    public void setTenSanPham(String tenSanPham) {
-        this.tenSanPham = tenSanPham;
-    }
+	public void setTenSanPham(String tenSanPham) {
+		this.tenSanPham = tenSanPham;
+	}
 
-    public int getSoLuong() {
-        return soLuong;
-    }
+	public int getSoLuong() {
+		return soLuong;
+	}
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
+	public void setSoLuong(int soLuong) {
+		this.soLuong = soLuong;
+	}
 
-    public double getGiaBan() {
-        return giaBan;
-    }
+	public double getGiaBan() {
+		return giaBan;
+	}
 
-    public void setGiaBan(double giaBan) {
-        this.giaBan = giaBan;
-    }
+	public void setGiaBan(double giaBan) {
+		this.giaBan = giaBan;
+	}
 
-    public DanhMucSanPham getDanhMucSanPham() {
-        return danhMucSanPham;
-    }
+	public DanhMucSanPham getDanhMucSanPham() {
+		return danhMucSanPham;
+	}
 
-    public void setDanhMucSanPham(DanhMucSanPham danhMucSanPham) {
-        this.danhMucSanPham = danhMucSanPham;
-    }
+	public void setDanhMucSanPham(DanhMucSanPham danhMucSanPham) {
+		this.danhMucSanPham = danhMucSanPham;
+	}
 
-    public NhaCungCapSanPham getNhaCungCapSanPham() {
-        return nhaCungCapSanPham;
-    }
+	public NhaCungCapSanPham getNhaCungCapSanPham() {
+		return nhaCungCapSanPham;
+	}
 
-    public void setNhaCungCapSanPham(NhaCungCapSanPham nhaCungCapSanPham) {
-        this.nhaCungCapSanPham = nhaCungCapSanPham;
-    }
+	public void setNhaCungCapSanPham(NhaCungCapSanPham nhaCungCapSanPham) {
+		this.nhaCungCapSanPham = nhaCungCapSanPham;
+	}
 
-    @Override
-    public String toString() {
-        return "SanPham{" +
-                "maSanPham='" + maSanPham + '\'' +
-                ", tenSanPham='" + tenSanPham + '\'' +
-                ", soLuong=" + soLuong +
-                ", giaBan=" + giaBan +
-                ", danhMucSanPham=" + danhMucSanPham +
-                ", nhaCungCapSanPham=" + nhaCungCapSanPham +
-                '}';
-    }
+	public String getKe() {
+		return ke;
+	}
+
+	public void setKe(String ke) {
+		this.ke = ke;
+	}
+
+	@Override
+	public String toString() {
+		return "SanPham [maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuong=" + soLuong + ", giaBan="
+				+ giaBan + ", danhMucSanPham=" + danhMucSanPham + ", nhaCungCapSanPham=" + nhaCungCapSanPham + ", ke="
+				+ ke + "]";
+	}
+
+
 }
 

@@ -51,13 +51,10 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 	private JButton btnLamMoi;
 	private JButton btnTimKH;
-
 	private JButton btnThanhToan;
-
 	private NhanVienDAO nv_dao;
 	private HoaDonDAO hd_Dao;
-
-	private JButton btnInHoaDon;
+	private HoaDonDatHangDAO hddh_Dao;
 	private JComboBox<String> cbNhanVien;
 	private DanhMucDAO dm_dao;
 	protected String soLuongSP;
@@ -67,6 +64,8 @@ public class FrmBanHang extends JPanel implements ActionListener {
     private JPanel pBody_1;
 	private String maKH;
 	private ChiTietHoaDonDAO ctHD_dao;
+	private ChiTietHoaDonDatHangDAO ctHDDH_dao;
+	private JButton btnDatHang;
 
 	/**
 	 * Create the panel.
@@ -91,6 +90,9 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		hd_Dao = new HoaDonDAO();
 		ctHD_dao = new ChiTietHoaDonDAO();
 		dm_dao = new DanhMucDAO();
+		hddh_Dao = new HoaDonDatHangDAO();
+		ctHDDH_dao = new ChiTietHoaDonDatHangDAO();
+
 
 		JPanel pMain = new JPanel();
 		pMain.setSize(new Dimension(1550, 1030));
@@ -241,8 +243,13 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 		btnThanhToan = new JButton("Thanh Toán");
 		btnThanhToan.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnThanhToan.setBounds(45, 186, 360, 60);
+		btnThanhToan.setBounds(50, 186, 160, 60);
 		panel_1.add(btnThanhToan);
+		
+		btnDatHang = new JButton("Đặt hàng");
+		btnDatHang.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnDatHang.setBounds(235, 186, 160, 60);
+		panel_1.add(btnDatHang);
 
 		txtTongTien = new JTextField();
 		txtTongTien.setColumns(10);
@@ -378,6 +385,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		btnThanhToan.addActionListener(this);
 		btnHuy.addActionListener(this);
 		btnLamMoiSP.addActionListener(this);
+		btnDatHang.addActionListener(this);
 
 		docDuLieuSanPham();
 
@@ -392,6 +400,8 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		btnLamMoi.setForeground(Color.WHITE);
 		btnThanhToan.setBackground(new Color(113, 109, 242));
 		btnThanhToan.setForeground(Color.WHITE);
+		btnDatHang.setBackground(new Color(113, 109, 242));
+		btnDatHang.setForeground(Color.WHITE);
 		btnHuy.setBackground(new Color(113, 109, 242));
 		btnHuy.setForeground(Color.WHITE);
 		btnLamMoiSP.setBackground(new Color(113, 109, 242));
@@ -403,7 +413,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		btnThem.setIcon(new ImageIcon("src/icon/plus.png"));
 		btnXoaSanPham.setIcon(new ImageIcon("src/icon/delete.png"));
 		btnLamMoi.setIcon(new ImageIcon("src/icon/loading.png"));
-		btnThanhToan.setIcon(new ImageIcon("src/icon/sales2.png"));
 		btnHuy.setIcon(new ImageIcon("src/icon/remove.png"));
 		btnLamMoiSP.setIcon(new ImageIcon("src/icon/loading.png"));
 		btnTimKH.setIcon(new ImageIcon("src/icon/search.png"));
@@ -482,42 +491,46 @@ public class FrmBanHang extends JPanel implements ActionListener {
 			sorter.setRowFilter(af);
 		}
 		if (o.equals(btnThem)) {
+		    int row = tblSanPham.getSelectedRow();
+		    if (row == -1) {
+		        JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm nào", "Warning", JOptionPane.WARNING_MESSAGE);
+		    } else {
+		        String txtMaSP = tblSanPham.getValueAt(row, 0).toString();
+		        String txtTenSP = tblSanPham.getValueAt(row, 1).toString();
+		        String cBDanhMuc = tblSanPham.getValueAt(row, 5).toString();
+		        String cBNCC = tblSanPham.getValueAt(row, 2).toString();
+		        String giaban = tblSanPham.getValueAt(row, 3).toString();
+		        String soLuongSP = tblSanPham.getValueAt(row, 4).toString();
 
-			int row = tblSanPham.getSelectedRow();
-			if (row == -1) {
-				JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm nào", "Warning", JOptionPane.WARNING_MESSAGE);
-			} else {
-				String txtMaSP = tblSanPham.getValueAt(row, 0).toString();
-				String txtTenSP = tblSanPham.getValueAt(row, 1).toString();
-				String cBDanhMuc = tblSanPham.getValueAt(row, 5).toString();
-				String cBNCC = tblSanPham.getValueAt(row, 2).toString();
-				String giaban = tblSanPham.getValueAt(row, 3).toString();
-				String soLuongSP = tblSanPham.getValueAt(row, 4).toString();
+		        soluong = (int) spSoLuong.getValue();
+		        thanhtien = Double.parseDouble(giaban) * soluong;
+		        String thanhTien = String.valueOf(thanhtien);
+		        int soluongsp = Integer.parseInt(soLuongSP);
 
-				soluong = (int) spSoLuong.getValue();
-				thanhtien = Double.parseDouble(giaban) * soluong;
-				String thanhTien = String.valueOf(thanhtien);
-				int soluongsp = Integer.parseInt(soLuongSP);
+		        int a = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thêm ?", null, JOptionPane.YES_NO_OPTION);
+		        if (a == JOptionPane.YES_OPTION) {
+		            int inputQuantity = (int) spSoLuong.getValue();
+		            if (inputQuantity < soluongsp) {
+		                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ, vui lòng đặt hàng", "Warning", JOptionPane.WARNING_MESSAGE);
+		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, inputQuantity, thanhTien});
+		                n++;
+		            } else {
+		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, inputQuantity, thanhTien});
+		                n++;
+			            int soLuongCu = Integer.parseInt(tblSanPham.getValueAt(row, 4).toString());
+		                int soLuongMoi = soLuongCu - inputQuantity;
+		                tblSanPham.setValueAt(soLuongMoi, row, 4);
+		                
+		            }
 
-				int a = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thêm ?", null, JOptionPane.YES_NO_OPTION);
-				if (a == JOptionPane.YES_OPTION) {
-					if (soluong > soluongsp) {
-						JOptionPane.showMessageDialog(this, "Không đủ số lượng đế đáp ứng đơn hàng", "Warning", JOptionPane.WARNING_MESSAGE);
-					} else {
-						model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, soluong, thanhTien});
-						n++;
-						int soLuongCu = Integer.parseInt(tblSanPham.getValueAt(row, 4).toString());
-						int soLuongMoi = soLuongCu - soluong;
-						tblSanPham.setValueAt(soLuongMoi, row, 4);
+		        }
+		    }
+		    
 
-					}
-				}
-
-
-				spSoLuong.setValue(1);
-				thanhTien();
-			}
+		    spSoLuong.setValue(1);
+		    thanhTien();
 		}
+
 		if (o.equals(btnXoaSanPham)) {
 			int row = tblDonHang.getSelectedRow();
 			if (row == -1) {
@@ -603,10 +616,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 					}
 				}
 				Date ngayLap = Calendar.getInstance().getTime();
-				// ngày giao giao dự kiến bằng ngayLap + 3 ngày
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(ngayLap);
-				cal.add(Calendar.DATE, 3);
 				HoaDon hd = new HoaDon(maHD, kh, nv, ngayLap);
 				if(!hd_Dao.kiemTraMaHD(maHD)){
 					if(hd_Dao.themHoaDon(hd)){
@@ -651,8 +660,77 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 
 			}
-
 		}
+
+			if (o.equals(btnDatHang)) {
+
+				int count = model_DonHang.getRowCount();
+				if (count == 0) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa có sản phẩm để đặt hàng, vui lòng thêm sản phẩm để đặt hàng");
+				} else if (cbNhanVien.getSelectedItem().equals(null)) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên thanh toán");
+				}else if(maKH == null) {
+					JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin khách hàng","Warning",JOptionPane.WARNING_MESSAGE);
+				} else {
+					String maHD = taoMaHD();
+					KhachHang kh = new KhachHang(maKH);
+					// lấy ra mã nhân viên
+					NhanVien nv = new NhanVien();
+					ArrayList<NhanVien> dsnv = nv_dao.layThongTin();
+					for (NhanVien ab : dsnv) {
+						if (ab.getHoTen().equalsIgnoreCase(cbNhanVien.getSelectedItem().toString())) {
+							nv = new NhanVien(ab.getMaNhanVien());
+						}
+					}
+					Date ngayLap = Calendar.getInstance().getTime();
+					Date ngayNhanHang = Calendar.getInstance().getTime();
+					HoaDonDatHang hd = new HoaDonDatHang(maHD, kh, nv, ngayLap,ngayNhanHang);
+					if(!hddh_Dao.kiemTraMaHD(maHD)){
+						if(hddh_Dao.themHoaDon(hd)){
+								// lấy thông tin trong bảng đơn hàng
+							int row = model_DonHang.getRowCount();
+							for (int j = 0; j < row; j++) {
+								String maSP = model_DonHang.getValueAt(j, 1).toString();
+								String tenLK = model_DonHang.getValueAt(j, 2).toString();
+								String donGia = model_DonHang.getValueAt(j, 3).toString();
+								String soLuong = model_DonHang.getValueAt(j, 6).toString();
+								String thanhTien = model_DonHang.getValueAt(j, 5).toString();
+
+								SanPham sp = new SanPham(maSP);
+								int soluongsp = Integer.parseInt(soLuong);
+								int sl = Integer.parseInt(soLuongSP);
+
+
+								ChiTietHoaDonDatHang cthd = new ChiTietHoaDonDatHang(sp, hd,soluongsp);
+								ctHDDH_dao.themDonHang(cthd);
+								// trừ số lượng trong bảng sản phẩm
+								sp_dao.CapNhapSoLuong(maSP, sl-soluongsp);
+								docDuLieuSanPham();
+
+							}
+								JOptionPane.showMessageDialog(null, "Đặt hàng thành công");
+								// trừ số lượng trong bảng sản phẩm
+
+								tblSanPham.setRowSorter(null);
+								txtTongTien.setText("");
+								// xóa hết dữ liệu trong bảng đơn hàng
+								int rowCount = model_DonHang.getRowCount();
+								for (int t = rowCount - 1; t >= 0; t--) {
+									model_DonHang.removeRow(t);
+									n--;
+								}
+								// trả về số lượng ban đầu
+
+								// trả  về thành tiền
+								txtTongTien.setText("");
+						}
+					}
+
+
+				}
+				
+			}
+
 		if(o.equals(btnHuy)) {
 			XoaTrangALL();
 		}

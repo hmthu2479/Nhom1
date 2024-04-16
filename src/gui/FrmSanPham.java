@@ -42,6 +42,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 	private JButton btnTim;
 	private JButton btnXoa;
 	private JButton btnSua;
+	private JTextField txtKe;
 
 
 
@@ -112,8 +113,21 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 		txtTenSanPham = new JTextField();
 		txtTenSanPham.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTenSanPham.setColumns(10);
-		txtTenSanPham.setBounds(540, 45, 440, 40);
+		txtTenSanPham.setBounds(540, 45, 240, 40);
 		panelThongTin.add(txtTenSanPham);
+		/*
+		Tên sản phẩm
+		 */
+		JLabel lblKe = new JLabel("Thuộc kệ:");
+		lblKe.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblKe.setBounds(830, 45, 120, 40);
+		panelThongTin.add(lblKe);
+
+		txtKe = new JTextField();
+		txtKe.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtKe.setColumns(10);
+		txtKe.setBounds(910, 45, 240, 40);
+		panelThongTin.add(txtKe);
 		/*
 		Nhà cung cấp
 		 */
@@ -199,7 +213,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 360, 1540, 465);
 		add(scrollPane_1);
-		String[] Header = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Giá Bán", "Số Lượng", "Danh Mục"};
+		String[] Header = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Giá Bán", "Số Lượng", "Danh Mục", "Thuộc kệ"};
 		model = new DefaultTableModel(Header, 0);
 		table = new JTable(model);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -324,8 +338,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 
 			btnLuu.setVisible(true);
 			btnHuy.setVisible(true);
-			txtMaSanPham.setEditable(false);
-			txtMaSanPham.setText(taoMaSanPham());
+
 
 			n = 1;
 		}
@@ -334,6 +347,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 				if(validData()) {
 					String maSanPham = txtMaSanPham.getText();
 					String tenSanPham = txtTenSanPham.getText();
+					String ke = txtKe.getText();
 					ArrayList<NhaCungCapSanPham> dsNhaCungCap = nhaCungCapDAO.layThongTin();
 					NhaCungCapSanPham nhacungcap = new NhaCungCapSanPham();
 					for (NhaCungCapSanPham ncc1 : dsNhaCungCap) {
@@ -350,7 +364,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 							danhMuc = new DanhMucSanPham(dm1.getMaDanhMuc());
 						}
 					}
-					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap);
+					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap,ke);
 					if (sp_dao.themSanPham(sp)) {
 						JOptionPane.showMessageDialog(null, "Thêm thành công");
 						btnTim.setVisible(true);
@@ -361,7 +375,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 						btnLuu.setVisible(false);
 						btnHuy.setVisible(false);
 						btnLamMoi.setVisible(true);
-						txtMaSanPham.setEditable(true);
+
 						docDuLieu();
 						XoaTrang();
 					}
@@ -410,6 +424,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 				if(validData()) {
 					String maSanPham = txtMaSanPham.getText();
 					String tenSanPham = txtTenSanPham.getText();
+					String ke = txtKe.getText();
 					ArrayList<NhaCungCapSanPham> dsNhaCungCap = nhaCungCapDAO.layThongTin();
 					NhaCungCapSanPham nhacungcap = new NhaCungCapSanPham();
 					for (NhaCungCapSanPham ncc1 : dsNhaCungCap) {
@@ -426,7 +441,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 							danhMuc = new DanhMucSanPham(dm1.getMaDanhMuc());
 						}
 					}
-					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap);
+					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap,ke);
 					int action = JOptionPane.showConfirmDialog(null, "Bạn có muốn cập nhật không?", "Cập nhật", JOptionPane.YES_NO_OPTION);
 					if(action == JOptionPane.YES_OPTION) {
 						if (sp_dao.capNhatSanPham(sp)) {
@@ -492,45 +507,13 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 				for (DanhMucSanPham dm : dsDanhMuc) {
 					if (ncc.getMaNhaCungCap().equalsIgnoreCase(sp.getNhaCungCapSanPham().getMaNhaCungCap())
 							&& dm.getMaDanhMuc().equalsIgnoreCase(sp.getDanhMucSanPham().getMaDanhMuc())) {
-						model.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), ncc.getTenNCC(), sp.getGiaBan(), sp.getSoLuong(), dm.getTenDanhMuc()});
+						model.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), ncc.getTenNCC(), sp.getGiaBan(), sp.getSoLuong(), dm.getTenDanhMuc(),sp.getKe()});
 					}
 				}
 			}
 		}
 	}
-/*
-TODO: Tạo mã sản phẩm
- */
-	public String taoMaSanPham() {
-
-		String masp = "";
-		double n = (Math.random()) * ((10000 - 1) + 1) + 1;
-		int i = (int) n, a = 0;
-
-		do {
-			if (i < 10) {
-				masp = "sp000" + i;
-			}
-			if (i < 100) {
-				masp = "sp00" + i;
-			}
-			if (i < 1000) {
-				masp = "sp0" + i;
-			}
-			if (i < 10000) {
-				masp = "sp" + i;
-			}
-
-
-			if (!sp_dao.kiemTraMaSanPham(masp)) {
-				a = 0;
-			} else
-				a = 1;
-		} while (a != 0);
-
-		return masp;
-
-	}
+	
 	private boolean validData() {
 		if (txtTenSanPham.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Tên sản phẩm không được để trống");
@@ -538,12 +521,7 @@ TODO: Tạo mã sản phẩm
 			txtTenSanPham.requestFocus();
 			return false;
 		}
-		if(!txtTenSanPham.getText().matches("[a-zA-Z0-9\\s]+")) {
-			JOptionPane.showMessageDialog(null, "Tên sản phẩm không được chứa ký tự đặc biệt");
-			txtTenSanPham.selectAll();
-			txtTenSanPham.requestFocus();
-			return false;
-		}
+
 		if (txtGiaBan.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Giá bán không được để trống");
 			txtGiaBan.selectAll();
