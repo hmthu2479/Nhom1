@@ -39,16 +39,10 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 	private JButton btnSua;
 
 	private KhachHangDAO kh_dao = new KhachHangDAO();
-	private List<KhachHang> khachHangs = new ArrayList<KhachHang>();
 
 	public FrmKhachHang() {
 
 		kh_dao = new KhachHangDAO();
-		//Thiết lập layout
-		setMaximumSize(new Dimension(1500, 1030));
-		setMinimumSize(new Dimension(1500, 1030));
-		setMaximumSize(new Dimension(1500, 1030));
-		setSize(new Dimension(1550, 845));
 		setLayout(null);
 
 		// thiết lập các thành phần GUI

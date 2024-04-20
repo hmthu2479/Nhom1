@@ -17,8 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 public class HoaDonDAO {
-	private ChiTietPhieuDatHang ctphieu_dao;
-	private ChiTietHoaDonDAO ctHoaDonDAO;
 	public ArrayList<HoaDon> layThongTin(){
         ArrayList<HoaDon> dsHoaDon = new ArrayList<HoaDon>();
         try{
@@ -52,7 +50,7 @@ public class HoaDonDAO {
 	        statement.setString(1, hd.getMaHoaDon());
 	        statement.setString(2, hd.getKhachHang().getMaKH());
 	        statement.setString(3, hd.getNhanVien().getMaNhanVien());
-	        statement.setDate(4, new java.sql.Date(hd.getNgayLapHD().getTime())); // Convert java.util.Date to java.sql.Date
+	        statement.setDate(4, new java.sql.Date(hd.getNgayLapHD().getTime())); 
 	        n = statement.executeUpdate();
 	    } catch (SQLException e) {
 	        throw new RuntimeException(e);
@@ -102,8 +100,7 @@ public class HoaDonDAO {
         return dsHoaDon;
     }
 
- // Inside the HoaDonDAO class
-    public String generateMaHoaDon(String maPhieu) {
+    public String taoMaHD(String maPhieu) {
         return "HD_" + maPhieu;
     }
 
@@ -132,7 +129,7 @@ public class HoaDonDAO {
                 int soLuong = chiTiet.getSoLuong();
                 ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(sanPham, hoaDon, soLuong);
                 
-                success = ctHoaDonDAO.themDonHang(chiTietHoaDon);
+                success = ctHoaDonDAO.themCTHoaDon(chiTietHoaDon);
                 if (!success) {
                     return false;
                 }

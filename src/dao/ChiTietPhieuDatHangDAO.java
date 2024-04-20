@@ -41,7 +41,7 @@ public class ChiTietPhieuDatHangDAO{
 		return dsChiTietPhieu;
 	}
 
-	public boolean themDonHang(ChiTietPhieuDatHang ct) {
+	public boolean themCTPhieu(ChiTietPhieuDatHang ct) {
 	    ConnectDB.getInstance();
 	    Connection con = ConnectDB.getConnection();
 	    PreparedStatement statement = null;
@@ -68,7 +68,7 @@ public class ChiTietPhieuDatHangDAO{
 	}
 
 		
-	public ArrayList<ChiTietPhieuDatHang> TimPhieu(String id) {
+	public ArrayList<ChiTietPhieuDatHang> TimCTPhieu(String id) {
 		ArrayList<ChiTietPhieuDatHang> ds = new ArrayList<ChiTietPhieuDatHang>();
 
 		ConnectDB.getInstance();
@@ -94,13 +94,7 @@ public class ChiTietPhieuDatHangDAO{
 			// TODO: handle exception
 			e.printStackTrace();
 
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return ds;
 	}
 }

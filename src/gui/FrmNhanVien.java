@@ -28,7 +28,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 	private JTextField txtMaNhanVien;
 	private JTextField txtHoTen;
 	private JTextField txtSDT;
-	private JComboBox cbxDiaChi;
+	private JComboBox<String> cbxDiaChi;
 	private JDateChooser dateNgaySinh;
 	private DefaultTableModel model;
 	private JButton btnThem, btnXoa, btnSua, btnLuu, btnHuy;

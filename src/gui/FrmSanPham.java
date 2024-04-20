@@ -49,12 +49,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 	public FrmSanPham() {
 		//doc du lieu tu database
 		sp_dao = new SanPhamDAO();
-		//setsize
-		setMaximumSize(new Dimension(1500, 1030));
-		setMinimumSize(new Dimension(1500, 1030));
-		setMaximumSize(new Dimension(1500, 1030));
 
-		setSize(new Dimension(1550, 845));
 		setLayout(null);
 		/*
 		Tiêu đề

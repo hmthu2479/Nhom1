@@ -81,15 +81,6 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 
 
 	public FrmHoaDon() {
-		setMaximumSize(new Dimension(1500, 1030));
-		setMinimumSize(new Dimension(1500, 1030));
-		setMaximumSize(new Dimension(1500, 1030));
-		setName("Bán hàng");
-		/**
-		 *
-		 */
-
-		setSize(new Dimension(1550, 845));
 		setLayout(null);
         kh_dao = new KhachHangDAO();
 		sp_dao = new SanPhamDAO();
@@ -236,7 +227,7 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 	    for (HoaDon hd : dsHD) {
 	        KhachHang kh = kh_dao.TimKhachHang(hd.getKhachHang().getMaKH());
 	        NhanVien nv = nv_dao.TimNhanVien(hd.getNhanVien().getMaNhanVien());
-	        ArrayList<ChiTietHoaDon> dsCT = cthd_dao.TimHoaDon(hd.getMaHoaDon());
+	        ArrayList<ChiTietHoaDon> dsCT = cthd_dao.TimCTHoaDon(hd.getMaHoaDon());
 	        double tong = 0;
 	        for (ChiTietHoaDon ct : dsCT) {
 	            SanPham sp = sp_dao.timSanPham(ct.getSanPham().getMaSanPham()).get(0);
@@ -249,7 +240,7 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 
 
 	public void DocDuLieuCTDH(String id) {
-		ArrayList<ChiTietHoaDon> dsCT = cthd_dao.TimHoaDon(id);
+		ArrayList<ChiTietHoaDon> dsCT = cthd_dao.TimCTHoaDon(id);
 		ArrayList<DanhMucSanPham> dsDM = dm_dao.layThongTin();
 		ArrayList<NhaCungCapSanPham> dsNCC = ncc_DAO.layThongTin();
 		modelCTHoaDon.setRowCount(0);

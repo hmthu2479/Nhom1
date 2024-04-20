@@ -21,9 +21,6 @@ import entity.*;
 
 public class FrmBanHang extends JPanel implements ActionListener {
 
-	/**
-	 * Create the panel.
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton btnLamMoiSP;
 	private JTextField txtTenSP;
@@ -35,11 +32,10 @@ public class FrmBanHang extends JPanel implements ActionListener {
 	private DefaultTableModel model_sanPham, model_DonHang;
 	private SanPhamDAO sp_dao;
 	private JButton btnTimKiemSP, btnThem, btnXoaSanPham;
-	private JComboBox<String> cBDanhMuc, cBSize, cBNCC;
+	private JComboBox<String> cBDanhMuc, cBNCC;
 	private double thanhtien;
 	private int soluong;
 	private JSpinner spSoLuong;
-	@SuppressWarnings("deprecation")
 	private Locale localeVN = new Locale("vi", "VN");
 	private Locale localDF = Locale.getDefault();
 	private NhaCungCapDAO ncc_dao;
@@ -58,28 +54,15 @@ public class FrmBanHang extends JPanel implements ActionListener {
 	private DanhMucDAO dm_dao;
 	protected String soLuongSP;
 	private JButton btnHuy;
-    private DanhMucSanPham dsDM;
-    private NhaCungCapSanPham dsNCC;
     private JPanel pBody_1;
 	private String maKH;
 	private ChiTietHoaDonDAO ctHD_dao;
 	private ChiTietPhieuDatHangDAO ctphieu_Dao;
 	private JButton btnDatHang;
 
-	/**
-	 * Create the panel.
-	 */
 
 	public FrmBanHang() {
-		setMaximumSize(new Dimension(1500, 1030));
-		setMinimumSize(new Dimension(1500, 1030));
-		setMaximumSize(new Dimension(1500, 1030));
-		setName("Bán hàng");
-		/**
-		 *
-		 */
 
-		setSize(new Dimension(1550, 845));
 		setLayout(null);
 		sp_dao = new SanPhamDAO();
 		ncc_dao = new NhaCungCapDAO();
@@ -122,17 +105,16 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		pMain.add(pBody);
 		pBody.setLayout(null);
 
-		// Adjusted positions and sizes to align components in one line
 		txtTenSP = new JTextField();
 		txtTenSP.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTenSP.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTenSP.setColumns(10);
-		txtTenSP.setBounds(235, 57, 180, 40); // Adjusted position
+		txtTenSP.setBounds(235, 57, 180, 40); 
 		pBody.add(txtTenSP);
 
 		btnTimKiemSP = new JButton("Tìm Kiếm");
 		btnTimKiemSP.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnTimKiemSP.setBounds(430, 57, 150, 40); // Adjusted position
+		btnTimKiemSP.setBounds(430, 57, 150, 40); 
 		pBody.add(btnTimKiemSP);
 
 		btnLamMoiSP = new JButton("Làm mới");
@@ -141,12 +123,12 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		    }
 		});
 		btnLamMoiSP.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnLamMoiSP.setBounds(640, 57, 150, 40); // Adjusted position
+		btnLamMoiSP.setBounds(640, 57, 150, 40);
 		pBody.add(btnLamMoiSP);
 
 		JLabel lblTenLK = new JLabel("Nhập tên sản phẩm cần tìm");
 		lblTenLK.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTenLK.setBounds(20, 57, 204, 37); // Adjusted position
+		lblTenLK.setBounds(20, 57, 204, 37); 
 		txtTenSP.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
@@ -154,7 +136,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		    }
 		});
 		pBody.add(lblTenLK);
-
 
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -379,15 +360,15 @@ public class FrmBanHang extends JPanel implements ActionListener {
 			    ArrayList<SanPham> dsSanPham = sp_dao.layThongTin();
 			    model_sanPham.setRowCount(0);
 			    for (SanPham sp : dsSanPham) {
-			        String nccName = layTenNCC(sp.getNhaCungCapSanPham().getMaNhaCungCap());
-			        String dmName = layTenDanhMuc(sp.getDanhMucSanPham().getMaDanhMuc());
+			        String tenNCC = layTenNCC(sp.getNhaCungCapSanPham().getMaNhaCungCap());
+			        String tenDM = layTenDanhMuc(sp.getDanhMucSanPham().getMaDanhMuc());
 			        model_sanPham.addRow(new Object[]{
 			            sp.getMaSanPham(), 
 			            sp.getTenSanPham(), 
-			            nccName, 
+			            tenNCC, 
 			            sp.getGiaBan(), 
 			            sp.getSoLuong(), 
-			            dmName
+			            tenDM
 			        });
 			    }
 			}
@@ -420,16 +401,16 @@ public class FrmBanHang extends JPanel implements ActionListener {
 	
 		        for (SanPham sp : sp_dao.layThongTin()) {
 		            if (sp.getTenSanPham().contains(tenSP)) {
-		                String nccName = layTenNCC(sp.getNhaCungCapSanPham().getMaNhaCungCap());
-		                String dmName = layTenDanhMuc(sp.getDanhMucSanPham().getMaDanhMuc());
+		                String tenNCC = layTenNCC(sp.getNhaCungCapSanPham().getMaNhaCungCap());
+		                String tenDM = layTenDanhMuc(sp.getDanhMucSanPham().getMaDanhMuc());
 		                
 		                model_sanPham.addRow(new Object[]{
 		                    sp.getMaSanPham(), 
 		                    sp.getTenSanPham(), 
-		                    nccName, 
+		                    tenNCC, 
 		                    sp.getGiaBan(), 
 		                    sp.getSoLuong(), 
-		                    dmName
+		                    tenDM
 		                });
 		            }
 		        }
@@ -456,17 +437,17 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 		        int a = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thêm ?", null, JOptionPane.YES_NO_OPTION);
 		        if (a == JOptionPane.YES_OPTION) {
-		            int inputQuantity = (int) spSoLuong.getValue();
-		            if (inputQuantity > soluongsp) {
+		            int soLuongNhap = (int) spSoLuong.getValue();
+		            if (soLuongNhap > soluongsp) {
 		                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ, vui lòng đặt hàng", "Warning", JOptionPane.WARNING_MESSAGE);
-		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, inputQuantity, thanhTien});
+		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, soLuongNhap, thanhTien});
 		                n++;
 
 		            } else {
-		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, inputQuantity, thanhTien});
+		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, soLuongNhap, thanhTien});
 		                n++;
 			            int soLuongCu = Integer.parseInt(tblSanPham.getValueAt(row, 4).toString());
-		                int soLuongMoi = soLuongCu - inputQuantity;
+		                int soLuongMoi = soLuongCu - soLuongNhap;
 		                tblSanPham.setValueAt(soLuongMoi, row, 4);
 		                
 		            }
@@ -571,10 +552,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 						int row = model_DonHang.getRowCount();
 						for (int j = 0; j < row; j++) {
 							String maSP = model_DonHang.getValueAt(j, 1).toString();
-							String tenSP = model_DonHang.getValueAt(j, 2).toString();
-							String donGia = model_DonHang.getValueAt(j, 3).toString();
 							String soLuong = model_DonHang.getValueAt(j, 6).toString();
-							String thanhTien = model_DonHang.getValueAt(j, 5).toString();
 
 							SanPham sp = new SanPham(maSP);
 							int soluongsp = Integer.parseInt(soLuong);
@@ -582,7 +560,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 
 							ChiTietHoaDon cthd = new ChiTietHoaDon(sp, hd,soluongsp);
-							ctHD_dao.themDonHang(cthd);
+							ctHD_dao.themCTHoaDon(cthd);
 							// trừ số lượng trong bảng sản phẩm
 							sp_dao.CapNhapSoLuong(maSP, sl-soluongsp);
 							docDuLieuSanPham();
@@ -632,25 +610,20 @@ public class FrmBanHang extends JPanel implements ActionListener {
 					}
 					Date ngayLap = Calendar.getInstance().getTime();
 					Date ngayNhanHang = Calendar.getInstance().getTime();
-					PhieuDatHang hd = new PhieuDatHang(maphieu, kh, nv, ngayLap,ngayNhanHang);
+					PhieuDatHang phieu = new PhieuDatHang(maphieu, kh, nv, ngayLap,ngayNhanHang);
 					if(!phieu_Dao.kiemTraMaPhieu(maphieu)){
-						if(phieu_Dao.themPhieu(hd)){
+						if(phieu_Dao.themPhieu(phieu)){
 								// lấy thông tin trong bảng đơn hàng
 							int row = model_DonHang.getRowCount();
 							for (int j = 0; j < row; j++) {
 								String maSP = model_DonHang.getValueAt(j, 1).toString();
-								String tenSP = model_DonHang.getValueAt(j, 2).toString();
-								String donGia = model_DonHang.getValueAt(j, 3).toString();
 								String soLuong = model_DonHang.getValueAt(j, 6).toString();
-								String thanhTien = model_DonHang.getValueAt(j, 5).toString();
 
 								SanPham sp = new SanPham(maSP);
 								int soluongsp = Integer.parseInt(soLuong);
-								int sl = Integer.parseInt(soLuongSP);
 
-
-								ChiTietPhieuDatHang cthd = new ChiTietPhieuDatHang(sp, hd,soluongsp);
-								ctphieu_Dao.themDonHang(cthd);
+								ChiTietPhieuDatHang ctphieu = new ChiTietPhieuDatHang(sp, phieu,soluongsp);
+								ctphieu_Dao.themCTPhieu(ctphieu);
 								docDuLieuSanPham();
 
 							}
@@ -715,6 +688,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		    } while (hd_Dao.kiemTraMaHD(maHD));
 		    return maHD;
 		}
+		
 		public String taoMaPhieu() {
 		    Random rand = new Random();
 		    String maphieu;
@@ -727,7 +701,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 
 	public void XoaTrangTimKiemSP() {
-		txtTenSP.setText("");
 		txtTenSP.setText("");
 	}
 

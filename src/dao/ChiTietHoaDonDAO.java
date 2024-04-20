@@ -41,7 +41,7 @@ public class ChiTietHoaDonDAO{
 		return dsChiTietHoaDon;
 	}
 
-	public boolean themDonHang(ChiTietHoaDon ct) {
+	public boolean themCTHoaDon(ChiTietHoaDon ct) {
 		// TODO Auto-generated method stub
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
@@ -67,7 +67,7 @@ public class ChiTietHoaDonDAO{
 		}
 		return n > 0;
 	}
-		public ArrayList<ChiTietHoaDon> TimHoaDon(String id) {
+		public ArrayList<ChiTietHoaDon> TimCTHoaDon(String id) {
 		ArrayList<ChiTietHoaDon> ds = new ArrayList<ChiTietHoaDon>();
 
 		ConnectDB.getInstance();
@@ -93,13 +93,7 @@ public class ChiTietHoaDonDAO{
 			// TODO: handle exception
 			e.printStackTrace();
 
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return ds;
 	}
 }

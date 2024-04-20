@@ -63,7 +63,6 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JTable tblChiTietPhieu;
 	private JTable tblPhieu;
-	private JTextField txtPhieu;
     private DefaultTableModel modelPhieu, modelCTPhieu;
 	private NhaCungCapDAO ncc_DAO;
 
@@ -86,15 +85,7 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 
 
 	public FrmPhieuDatHang() {
-		setMaximumSize(new Dimension(1500, 1030));
-		setMinimumSize(new Dimension(1500, 1030));
-		setMaximumSize(new Dimension(1500, 1030));
-		setName("Bán hàng");
-		/**
-		 *
-		 */
 
-		setSize(new Dimension(1550, 845));
 		setLayout(null);
         kh_dao = new KhachHangDAO();
 		sp_dao = new SanPhamDAO();
@@ -104,6 +95,7 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 		ctphieu_dao = new ChiTietPhieuDatHangDAO();
 		ncc_DAO = new NhaCungCapDAO();
 		hd_dao = new HoaDonDAO();
+		
 		JPanel panelTitle = new JPanel();
 		JLabel lblTitLe = new JLabel("DANH SÁCH PHIẾU");
 		lblTitLe.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -181,7 +173,7 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 		        int r = tblPhieu.getSelectedRow();
 		        String maPhieu = modelPhieu.getValueAt(r, 0).toString();
 		        dateNgayDat.setDate((Date) modelPhieu.getValueAt(r, 4));
-		        DocDuLieuCTDH(maPhieu); // Call the method here to update the details of the selected row
+		        DocDuLieuCTDH(maPhieu);
 		    }
 		});
 
@@ -241,23 +233,23 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 
 	public void docDuLieuHD() {
 	    modelPhieu.setRowCount(0);
-	    ArrayList<PhieuDatHang> dsHD = phieu_dao.layThongTin();
-	    for (PhieuDatHang hd : dsHD) {
-	        KhachHang kh = kh_dao.TimKhachHang(hd.getKhachHang().getMaKH());
-	        NhanVien nv = nv_dao.TimNhanVien(hd.getNhanVien().getMaNhanVien());
-	        ArrayList<ChiTietPhieuDatHang> dsCT = ctphieu_dao.TimPhieu(hd.getmaPhieu());
+	    ArrayList<PhieuDatHang> dsPhieu = phieu_dao.layThongTin();
+	    for (PhieuDatHang p : dsPhieu) {
+	        KhachHang kh = kh_dao.TimKhachHang(p.getKhachHang().getMaKH());
+	        NhanVien nv = nv_dao.TimNhanVien(p.getNhanVien().getMaNhanVien());
+	        ArrayList<ChiTietPhieuDatHang> dsCT = ctphieu_dao.TimCTPhieu(p.getmaPhieu());
 	        double tong = 0;
 	        for (ChiTietPhieuDatHang ct : dsCT) {
 	            SanPham sp = sp_dao.timSanPham(ct.getSanPham().getMaSanPham()).get(0);
 	            tong += ct.getSoLuong() * sp.getGiaBan();
 	        }
 	        String TongTien = vn.format(tong) + " VND";
-	        modelPhieu.addRow(new Object[] { hd.getmaPhieu(), kh.getTenKH(), kh.getSoDT(), nv.getHoTen(), hd.getngayLap(), hd.getNgayNhanHangDuKien(), TongTien });
+	        modelPhieu.addRow(new Object[] { p.getmaPhieu(), kh.getTenKH(), kh.getSoDT(), nv.getHoTen(), p.getngayLap(), p.getNgayNhanHangDuKien(), TongTien });
 	    }
 	}
 
 	public void DocDuLieuCTDH(String id) {
-		ArrayList<ChiTietPhieuDatHang> dsCT = ctphieu_dao.TimPhieu(id);
+		ArrayList<ChiTietPhieuDatHang> dsCT = ctphieu_dao.TimCTPhieu(id);
 		ArrayList<DanhMucSanPham> dsDM = dm_dao.layThongTin();
 		ArrayList<NhaCungCapSanPham> dsNCC = ncc_DAO.layThongTin();
 		modelCTPhieu.setRowCount(0);
@@ -308,8 +300,8 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 		    if (selectedRow != -1) {
 		        String maPhieu = modelPhieu.getValueAt(selectedRow, 0).toString();
 		        ArrayList<PhieuDatHang> phieuDatHangList = phieu_dao.timPhieu(maPhieu);
-		        List<ChiTietPhieuDatHang> chiTietPhieuList = ctphieu_dao.TimPhieu(maPhieu);
-		        String maHoaDon = hd_dao.generateMaHoaDon(maPhieu);
+		        List<ChiTietPhieuDatHang> chiTietPhieuList = ctphieu_dao.TimCTPhieu(maPhieu);
+		        String maHoaDon = hd_dao.taoMaHD(maPhieu);
 
 		        boolean success = hd_dao.themHoaDonTuPhieu(phieuDatHangList, chiTietPhieuList, maHoaDon);
 

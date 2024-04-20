@@ -11,7 +11,6 @@ import java.awt.event.MouseListener;
 
 public class FrmManHinhChinh extends JFrame implements ActionListener, MouseListener {
     private static final long serialVersionUID = 1;
-    private FrmTrangChu frmTrangChu;
     private FrmSanPham frmSanPham;
     private FrmDanhMucSanPham frmDanhMucSanPham;
     private FrmNhaCungCapSanPham frmNhaCungCapSanPham;
@@ -24,7 +23,6 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
 
     private JPanel contentPane;
     public FrmManHinhChinh(){
-        frmTrangChu =  new FrmTrangChu();
         frmSanPham = new FrmSanPham();
         frmDanhMucSanPham = new FrmDanhMucSanPham();
         frmNhaCungCapSanPham = new FrmNhaCungCapSanPham();
@@ -51,18 +49,8 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         menuBar.setBounds(0,0,1920,50);
         // thêm màu cho menu với  mã màu là #716DF2
         menuBar.setBackground(Color.decode("#716DF2"));
-
-
         contentPane.add(menuBar);
-        JMenu mnTrangChu = new JMenu("Trang chủ");
-        mnTrangChu.setFont(new Font("Arial", Font.PLAIN, 20));
-        // thay đổi màu chữ thành màu trắng
-        mnTrangChu.setForeground(Color.WHITE);
-        menuBar.add(mnTrangChu);
 
-        /*
-        MENU LINH KIEN
-         */
         JMenu mnSanPham = new JMenu("SẢN PHẨM");
         mnSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
         // thay đổi màu chữ thành màu trắng
@@ -122,18 +110,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         panelBody.setBounds(0,50,1550,1030);
         contentPane.add(panelBody);
         panelBody.setLayout(new BorderLayout(0,0));
-        /*
-        Liên kết form trang chủ
-         */
-        mnTrangChu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panelBody.removeAll();
-                panelBody.add(new FrmTrangChu());
-                panelBody.validate();
-                contentPane.add(panelBody);
-            }
-        });
+       
         /*
         Liên kết form thông tin SẢN PHẨM
          */
