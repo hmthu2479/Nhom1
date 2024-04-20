@@ -19,7 +19,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
     private FrmKhachHang frmKhachHang;
     private FrmBanHang frmBanHang;
     private FrmHoaDon frmHoaDon;
-    private FrmHoaDonDatHang frmHoaDonDatHang;
+    private FrmPhieuDatHang frmHoaDonDatHang;
 
 
     private JPanel contentPane;
@@ -32,13 +32,13 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         frmKhachHang = new FrmKhachHang();
         frmBanHang = new FrmBanHang();
         frmHoaDon = new FrmHoaDon();
-        frmHoaDonDatHang = new FrmHoaDonDatHang();
+        frmHoaDonDatHang = new FrmPhieuDatHang();
 
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setTitle("HỆ THỐNG QUẢN LÝ BÁN SẢN PHẨM");
+		setTitle("HỆ THỐNG QUẢN LÝ CỬA HÀNG TIỆN LỢI");
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
@@ -59,9 +59,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         // thay đổi màu chữ thành màu trắng
         mnTrangChu.setForeground(Color.WHITE);
         menuBar.add(mnTrangChu);
-        // thêm icon
-        ImageIcon iconTC = new ImageIcon("src/icon/home2.png");
-        mnTrangChu.setIcon(iconTC);
+
         /*
         MENU LINH KIEN
          */
@@ -70,28 +68,16 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         // thay đổi màu chữ thành màu trắng
         mnSanPham.setForeground(Color.WHITE);
         menuBar.add(mnSanPham);
-        ImageIcon iconsp = new ImageIcon("src/icon/development2.png");
-        mnSanPham.setIcon(iconsp);
         JMenuItem mntmThongTinSanPham = new JMenuItem("Thông tin SẢN PHẨM");
         mntmThongTinSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
         // khi  chạy chương trình lên thì sẽ hiển thị màn hình mntmThongTinSanPham
 
-
-
-
-
         mnSanPham.add(mntmThongTinSanPham);
-        ImageIcon iconTT = new ImageIcon("src/icon/product3.png");
-        mntmThongTinSanPham.setIcon(iconTT);
         JMenuItem mntmDanhMucSanPham = new JMenuItem("Danh mục");
         mntmDanhMucSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
         mnSanPham.add(mntmDanhMucSanPham);
-        ImageIcon iconDM = new ImageIcon("src/icon/dm2.png");
-        mntmDanhMucSanPham.setIcon(iconDM);
         JMenuItem mntmNhaCungCap = new JMenuItem("Nhà cung cấp");
         mntmNhaCungCap.setFont(new Font("Arial", Font.PLAIN, 20));
-        ImageIcon iconNCC = new ImageIcon("src/icon/ncc.png");
-        mntmNhaCungCap.setIcon(iconNCC);
         mnSanPham.add(mntmNhaCungCap);
          /*
         MENU KHACH HANG
@@ -101,13 +87,9 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         // thay đổi màu chữ thành màu trắng
         mnKhachHang.setForeground(Color.WHITE);
         menuBar.add(mnKhachHang);
-        ImageIcon iconKH = new ImageIcon("src/icon/customer2.png");
-        mnKhachHang.setIcon(iconKH);
 
         JMenuItem mntmThongTinKhachHang = new JMenuItem("Thông tin khách hàng");
         mntmThongTinKhachHang.setFont(new Font("Arial", Font.PLAIN, 20));
-        ImageIcon iconTTKH = new ImageIcon("src/icon/cs2.png");
-        mntmThongTinKhachHang.setIcon(iconTTKH);
         mnKhachHang.add(mntmThongTinKhachHang);
         /*
         MENU NHAN VIEN
@@ -117,30 +99,21 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         // thay đổi màu chữ thành màu trắng
         mnNhanVien.setForeground(Color.WHITE);
         menuBar.add(mnNhanVien);
-        ImageIcon iconNV = new ImageIcon("src/icon/division2.png");
-        mnNhanVien.setIcon(iconNV);
 
         JMenuItem mntmThongTinNhanVien = new JMenuItem("Thông tin nhân viên");
         mntmThongTinNhanVien.setFont(new Font("Arial", Font.PLAIN, 20));
-        ImageIcon iconTTNV = new ImageIcon("src/icon/e2.png");
-        mntmThongTinNhanVien.setIcon(iconTTNV);
         mnNhanVien.add(mntmThongTinNhanVien);
 
         JMenuItem mntmBanHang = new JMenuItem("Bán hàng");
         mntmBanHang.setFont(new Font("Arial", Font.PLAIN, 20));
         mnNhanVien.add(mntmBanHang);
-        ImageIcon iconBH = new ImageIcon("src/icon/sales2.png");
-        mntmBanHang.setIcon(iconBH);
         JMenuItem mntmHoaDon = new JMenuItem("Xem hóa đơn");
         mntmHoaDon.setFont(new Font("Arial", Font.PLAIN, 20));
         mnNhanVien.add(mntmHoaDon);
-        ImageIcon iconHD = new ImageIcon("src/icon/completed2.png");
-        mntmHoaDon.setIcon(iconHD);
-        JMenuItem mntmHoaDonDatHang = new JMenuItem("Xem hóa đơn đặt hàng");
-        mntmHoaDonDatHang.setFont(new Font("Arial", Font.PLAIN, 20));
-        mnNhanVien.add(mntmHoaDonDatHang);
-        ImageIcon iconHDDH = new ImageIcon("src/icon/completed2.png");
-        mntmHoaDonDatHang.setIcon(iconHDDH);
+        JMenuItem mntmDatHang = new JMenuItem("Xem danh sách đặt hàng");
+        mntmDatHang.setFont(new Font("Arial", Font.PLAIN, 20));
+        mnNhanVien.add(mntmDatHang);
+
 
         /*
         Liên kết các panel
@@ -228,7 +201,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
                 panelBody.validate();
             }
         });
-        mntmHoaDonDatHang.addActionListener(new ActionListener() {
+        mntmDatHang.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panelBody.removeAll();

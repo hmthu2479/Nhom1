@@ -178,7 +178,7 @@ public class SanPhamDAO {
 		return n>0;
 	}
     // tìm sản phẩm
-    public ArrayList<SanPham> timmSanPham(String id) {
+    public ArrayList<SanPham> timSanPham(String id) {
 		ArrayList<SanPham> ds = new ArrayList<SanPham>();
 
 		ConnectDB.getInstance();

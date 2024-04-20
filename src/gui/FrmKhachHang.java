@@ -249,13 +249,7 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		table.setBackground(new Color(236, 242, 255));
 		// thay  đổi màu header của table thành màu #94A2F2
 		table.getTableHeader().setBackground(new Color(148, 162, 242));
-		// thêm icon vào các buttom với đường dẫn  là src/icon
-		btnTim.setIcon(new ImageIcon("src/icon/search.png"));
-		btnThem.setIcon(new ImageIcon("src/icon/plus.png"));
-		btnSua.setIcon(new ImageIcon("src/icon/update.png"));
-		btnXoa.setIcon(new ImageIcon("src/icon/delete.png"));
-		btnLuu.setIcon(new ImageIcon("src/icon/luu.png"));
-		btnHuy.setIcon(new ImageIcon("src/icon/remove.png"));
+
 		btnLamMoi.setIcon(new ImageIcon("src/icon/loading.png"));
 	}
 
