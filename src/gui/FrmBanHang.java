@@ -59,6 +59,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 	private ChiTietHoaDonDAO ctHD_dao;
 	private ChiTietPhieuDatHangDAO ctphieu_Dao;
 	private JButton btnDatHang;
+	private KeDAO k_dao;
 
 
 	public FrmBanHang() {
@@ -67,6 +68,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		sp_dao = new SanPhamDAO();
 		ncc_dao = new NhaCungCapDAO();
 		kh_dao = new KhachHangDAO();
+		k_dao = new KeDAO();
 
 		nv_dao = new NhanVienDAO();
 		hd_Dao = new HoaDonDAO();
@@ -142,7 +144,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		scrollPane.setBounds(0, 199, 1540, 200);
 		pMain.add(scrollPane);
 
-		String[] Header = { "Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Giá Bán", "Số Lượng", "Danh Mục"};
+		String[] Header = { "Mã Sản Phẩm", "Tên Sản Phẩm", "Nhà Cung cấp", "Giá Bán", "Số Lượng", "Danh Mục","Kệ"};
 		model_sanPham = new DefaultTableModel(Header, 0);
 		tblSanPham = new JTable(model_sanPham);
 		tblSanPham.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -248,7 +250,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		scrollPane_1.setBounds(0, 494, 1103, 332);
 		pMain.add(scrollPane_1);
 
-		String[] Header1 = { "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Danh mục", "Nhà cung cấp","Giá Bán", "Số Lượng", "Thành Tiền" };
+		String[] Header1 = { "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Danh mục", "Kệ", "Nhà cung cấp","Giá Bán", "Số Lượng", "Thành Tiền" };
 		model_DonHang = new DefaultTableModel(Header1, 0);
 
 		tblDonHang = new JTable(model_DonHang);
@@ -362,13 +364,15 @@ public class FrmBanHang extends JPanel implements ActionListener {
 			    for (SanPham sp : dsSanPham) {
 			        String tenNCC = layTenNCC(sp.getNhaCungCapSanPham().getMaNhaCungCap());
 			        String tenDM = layTenDanhMuc(sp.getDanhMucSanPham().getMaDanhMuc());
+			        String tenKe = layTenKe(sp.getKe().getMaKe());
 			        model_sanPham.addRow(new Object[]{
 			            sp.getMaSanPham(), 
 			            sp.getTenSanPham(), 
 			            tenNCC, 
 			            sp.getGiaBan(), 
 			            sp.getSoLuong(), 
-			            tenDM
+			            tenDM,
+			            tenKe
 			        });
 			    }
 			}
@@ -391,6 +395,14 @@ public class FrmBanHang extends JPanel implements ActionListener {
 			    }
 			    return "";
 			}
+			private String layTenKe(String maKe) {
+			    for (Ke k : k_dao.laythongtin()) {
+			        if (k.getMaKe().equalsIgnoreCase(maKe)) {
+			            return k.getTenKe();
+			        }
+			    }
+			    return "";
+			}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -403,6 +415,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		            if (sp.getTenSanPham().contains(tenSP)) {
 		                String tenNCC = layTenNCC(sp.getNhaCungCapSanPham().getMaNhaCungCap());
 		                String tenDM = layTenDanhMuc(sp.getDanhMucSanPham().getMaDanhMuc());
+		                String tenKe = layTenKe(sp.getKe().getMaKe());
 		                
 		                model_sanPham.addRow(new Object[]{
 		                    sp.getMaSanPham(), 
@@ -410,7 +423,8 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		                    tenNCC, 
 		                    sp.getGiaBan(), 
 		                    sp.getSoLuong(), 
-		                    tenDM
+		                    tenDM,
+		                    tenKe
 		                });
 		            }
 		        }
@@ -429,6 +443,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		        String cBNCC = tblSanPham.getValueAt(row, 2).toString();
 		        String giaban = tblSanPham.getValueAt(row, 3).toString();
 		        String soLuongSP = tblSanPham.getValueAt(row, 4).toString();
+		        String cBKe = tblSanPham.getValueAt(row, 6).toString();
 
 		        soluong = (int) spSoLuong.getValue();
 		        thanhtien = Double.parseDouble(giaban) * soluong;
@@ -440,11 +455,11 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		            int soLuongNhap = (int) spSoLuong.getValue();
 		            if (soLuongNhap > soluongsp) {
 		                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ, vui lòng đặt hàng", "Warning", JOptionPane.WARNING_MESSAGE);
-		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, soLuongNhap, thanhTien});
+		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBKe, cBNCC, giaban, soLuongNhap, thanhTien});
 		                n++;
 
 		            } else {
-		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBNCC, giaban, soLuongNhap, thanhTien});
+		                model_DonHang.addRow(new Object[]{n, txtMaSP, txtTenSP, cBDanhMuc, cBKe ,cBNCC, giaban, soLuongNhap, thanhTien});
 		                n++;
 			            int soLuongCu = Integer.parseInt(tblSanPham.getValueAt(row, 4).toString());
 		                int soLuongMoi = soLuongCu - soLuongNhap;
@@ -500,8 +515,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		if(o.equals(btnLamMoiSP)){
 			//txtMaSP.setText("");
 			txtTenSP.setText("");
-			cBDanhMuc.setSelectedItem("Tất cả");
-			cBNCC.setSelectedItem("Tất cả");
 			tblSanPham.setRowSorter(null);
 			docDuLieuSanPham();
 		}
@@ -552,7 +565,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 						int row = model_DonHang.getRowCount();
 						for (int j = 0; j < row; j++) {
 							String maSP = model_DonHang.getValueAt(j, 1).toString();
-							String soLuong = model_DonHang.getValueAt(j, 6).toString();
+							String soLuong = model_DonHang.getValueAt(j, 7).toString();
 
 							SanPham sp = new SanPham(maSP);
 							int soluongsp = Integer.parseInt(soLuong);
@@ -617,7 +630,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 							int row = model_DonHang.getRowCount();
 							for (int j = 0; j < row; j++) {
 								String maSP = model_DonHang.getValueAt(j, 1).toString();
-								String soLuong = model_DonHang.getValueAt(j, 6).toString();
+								String soLuong = model_DonHang.getValueAt(j, 7).toString();
 
 								SanPham sp = new SanPham(maSP);
 								int soluongsp = Integer.parseInt(soLuong);
@@ -661,8 +674,8 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		    double TongTien = 0;
 		    for (int i = 0; i < row; i++) {
 		        try {
-		            String gia = model_DonHang.getValueAt(i, 5).toString();
-		            String soLuong = model_DonHang.getValueAt(i, 6).toString();
+		            String gia = model_DonHang.getValueAt(i, 6).toString();
+		            String soLuong = model_DonHang.getValueAt(i, 7).toString();
 
 		            double giaValue = Double.parseDouble(gia);
 		            int soLuongValue = Integer.parseInt(soLuong);

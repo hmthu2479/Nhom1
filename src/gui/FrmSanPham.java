@@ -1,9 +1,11 @@
 package gui;
 
 import dao.DanhMucDAO;
+import dao.KeDAO;
 import dao.SanPhamDAO;
 import dao.NhaCungCapDAO;
 import entity.DanhMucSanPham;
+import entity.Ke;
 import entity.SanPham;
 import entity.NhaCungCapSanPham;
 
@@ -22,6 +24,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private SanPhamDAO sp_dao;
 	private DanhMucDAO danhMucDAO;
+	private KeDAO keDAO;
 	private NhaCungCapDAO nhaCungCapDAO;
     private JTable table;
 	private JTextField txtMaSanPham;
@@ -42,7 +45,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 	private JButton btnTim;
 	private JButton btnXoa;
 	private JButton btnSua;
-	private JTextField txtKe;
+	private JComboBox<String> cbxKe;
 
 
 
@@ -111,18 +114,19 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 		txtTenSanPham.setBounds(540, 45, 240, 40);
 		panelThongTin.add(txtTenSanPham);
 		/*
-		Tên sản phẩm
+		Kệ
 		 */
-		JLabel lblKe = new JLabel("Thuộc kệ:");
+		JLabel lblKe = new JLabel("Kệ:");
 		lblKe.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblKe.setBounds(830, 45, 120, 40);
 		panelThongTin.add(lblKe);
 
-		txtKe = new JTextField();
-		txtKe.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtKe.setColumns(10);
-		txtKe.setBounds(910, 45, 240, 40);
-		panelThongTin.add(txtKe);
+		cbxKe = new JComboBox<String>();
+		cbxKe.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cbxKe.setBounds(910, 45, 240, 40);
+		cbxKe.setEditable(false);
+		cbxKe.addItem("Tất cả");
+		panelThongTin.add(cbxKe);
 		/*
 		Nhà cung cấp
 		 */
@@ -257,7 +261,13 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 			cbxDanhMuc.addItem(dm.getTenDanhMuc());
 		}
 		cbxDanhMuc.setSelectedItem("Tất cả");
-
+		//Ke
+		keDAO = new KeDAO();
+		ArrayList<Ke> dske = keDAO.laythongtin();
+		for(Ke k : dske) {
+			cbxKe.addItem(k.getTenKe());
+		}
+		cbxKe.setSelectedItem("Tất cả");
 		//Table
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -269,6 +279,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 				txtGiaBan.setText(model.getValueAt(i, 4).toString());
 				txtSoLuong.setText(model.getValueAt(i, 5).toString());
 				cbxDanhMuc.setSelectedItem(model.getValueAt(i, 6).toString());
+				cbxKe.setSelectedItem(model.getValueAt(i, 7).toString());
 				txtMaSanPham.setEditable(false);
 			}
 		});
@@ -298,9 +309,11 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 		// thay đổi màu của combobox thành màu #94A2F2
 		cbxNhaCungCap.setBackground(new Color(148, 162, 242));
 		cbxDanhMuc.setBackground(new Color(148, 162, 242));
+		cbxKe.setBackground(new Color(148, 162, 242));
 		// thay  đổi màu chữ combobox thành màu trắng
 		cbxNhaCungCap.setForeground(Color.WHITE);
 		cbxDanhMuc.setForeground(Color.WHITE);
+		cbxKe.setForeground(Color.WHITE);
 		// thay đổi màu background thành #95BDFF
 		setBackground(new Color(149, 189, 255));
 		lblTieuDeTable.setForeground(Color.WHITE);
@@ -334,7 +347,6 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 				if(validData()) {
 					String maSanPham = txtMaSanPham.getText();
 					String tenSanPham = txtTenSanPham.getText();
-					String ke = txtKe.getText();
 					ArrayList<NhaCungCapSanPham> dsNhaCungCap = nhaCungCapDAO.layThongTin();
 					NhaCungCapSanPham nhacungcap = new NhaCungCapSanPham();
 					for (NhaCungCapSanPham ncc1 : dsNhaCungCap) {
@@ -351,7 +363,14 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 							danhMuc = new DanhMucSanPham(dm1.getMaDanhMuc());
 						}
 					}
-					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap,ke);
+					ArrayList<Ke> dske = keDAO.laythongtin();
+					Ke k = new Ke();
+					for(Ke k1 : dske) {
+						if(cbxKe.getSelectedItem().toString().equalsIgnoreCase(k1.getTenKe())) {
+							k = new Ke(k1.getMaKe());
+						}
+					}
+					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap,k);
 					if (sp_dao.themSanPham(sp)) {
 						JOptionPane.showMessageDialog(null, "Thêm thành công");
 						btnTim.setVisible(true);
@@ -411,7 +430,6 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 				if(validData()) {
 					String maSanPham = txtMaSanPham.getText();
 					String tenSanPham = txtTenSanPham.getText();
-					String ke = txtKe.getText();
 					ArrayList<NhaCungCapSanPham> dsNhaCungCap = nhaCungCapDAO.layThongTin();
 					NhaCungCapSanPham nhacungcap = new NhaCungCapSanPham();
 					for (NhaCungCapSanPham ncc1 : dsNhaCungCap) {
@@ -428,7 +446,14 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 							danhMuc = new DanhMucSanPham(dm1.getMaDanhMuc());
 						}
 					}
-					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap,ke);
+					ArrayList<Ke> dske = keDAO.laythongtin();
+					Ke k = new Ke();
+					for(Ke k1 : dske) {
+						if(cbxKe.getSelectedItem().toString().equalsIgnoreCase(k1.getTenKe())) {
+							k = new Ke(k1.getMaKe());
+						}
+					}
+					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap,k);
 					int action = JOptionPane.showConfirmDialog(null, "Bạn có muốn cập nhật không?", "Cập nhật", JOptionPane.YES_NO_OPTION);
 					if(action == JOptionPane.YES_OPTION) {
 						if (sp_dao.capNhatSanPham(sp)) {
@@ -450,11 +475,15 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 			String giaBan = txtGiaBan.getText();
 			String soLuong = txtSoLuong.getText();
 			String danhMuc = cbxDanhMuc.getSelectedItem().toString();
+			String ke = cbxKe.getSelectedItem().toString();
 			if(nhaCungCap.equalsIgnoreCase("Tất cả")){
 				nhaCungCap = "";
 			}
 			if(danhMuc.equalsIgnoreCase("Tất cả")){
 				danhMuc = "";
+			}
+			if(ke.equalsIgnoreCase("Tất cả")) {
+				ke = "";
 			}
 			TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
 			table.setRowSorter(sorter);
@@ -465,6 +494,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 			filters.add(RowFilter.regexFilter(giaBan, 4));
 			filters.add(RowFilter.regexFilter(soLuong, 5));
 			filters.add(RowFilter.regexFilter(danhMuc, 6));
+			filters.add(RowFilter.regexFilter(ke, 7));
 			RowFilter<Object,Object> filter = RowFilter.andFilter(filters);
 			sorter.setRowFilter(filter);
 
@@ -478,6 +508,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 		cbxNhaCungCap.setSelectedItem("Tất cả");
 		txtGiaBan.setText("");
 		txtSoLuong.setText("");
+		cbxKe.setSelectedItem("Tất cả");
 		txtMaSanPham.setEditable(true);
 
 	}
@@ -488,13 +519,17 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 		ArrayList<SanPham> dsSanPham = sp_dao.layThongTin();
 		ArrayList<NhaCungCapSanPham> dsNhaCungCap = nhaCungCapDAO.layThongTin();
 		ArrayList<DanhMucSanPham> dsDanhMuc = danhMucDAO.layThongTin();
+		ArrayList<Ke> dske = keDAO.laythongtin();
 		model.setRowCount(0);
 		for (SanPham sp : dsSanPham) {
 			for (NhaCungCapSanPham ncc : dsNhaCungCap) {
 				for (DanhMucSanPham dm : dsDanhMuc) {
-					if (ncc.getMaNhaCungCap().equalsIgnoreCase(sp.getNhaCungCapSanPham().getMaNhaCungCap())
-							&& dm.getMaDanhMuc().equalsIgnoreCase(sp.getDanhMucSanPham().getMaDanhMuc())) {
-						model.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), ncc.getTenNCC(), sp.getGiaBan(), sp.getSoLuong(), dm.getTenDanhMuc(),sp.getKe()});
+					for (Ke k : dske) {
+						if (ncc.getMaNhaCungCap().equalsIgnoreCase(sp.getNhaCungCapSanPham().getMaNhaCungCap())
+								&& dm.getMaDanhMuc().equalsIgnoreCase(sp.getDanhMucSanPham().getMaDanhMuc())
+								&& k.getMaKe().equalsIgnoreCase(sp.getKe().getMaKe())) {
+							model.addRow(new Object[]{sp.getMaSanPham(), sp.getTenSanPham(), ncc.getTenNCC(), sp.getGiaBan(), sp.getSoLuong(), dm.getTenDanhMuc(),k.getTenKe()});
+						}
 					}
 				}
 			}
@@ -539,6 +574,10 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 		}
 		if(cbxDanhMuc.getSelectedItem().toString().equalsIgnoreCase("Tất cả")) {
 			JOptionPane.showMessageDialog(null, "Vui lòng chọn danh mục");
+			return false;
+		}
+		if(cbxKe.getSelectedItem().toString().equalsIgnoreCase("Tất cả")) {
+			JOptionPane.showMessageDialog(null, "Vui lòng chọn kệ");
 			return false;
 		}
 		return true;

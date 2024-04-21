@@ -1,8 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,14 +9,12 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -36,6 +32,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -52,8 +49,8 @@ import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhaCungCapSanPham;
 import entity.NhanVien;
-import entity.PhieuDatHang;
 import entity.SanPham;
+
 
 public class FrmHoaDon extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -292,9 +289,83 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 			tblHoaDon.setRowSorter(null);
 			docDuLieuHD();
 		}
-		
-	
+		if (o.equals(btnInHoaDon)) {
+		    try {
+		        //Tạo pdf
+		        PDDocument document = new PDDocument();
+		        // Tạo trang trống
+		        PDPage page = new PDPage();
+		        document.addPage(page);
+		        // Thêm font
+		        PDType0Font font = PDType0Font.load(document, new File("src\\lib\\Helvetica.ttf")); 
+		        // Create a new instance of PDPageContentStream
+		        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+		        contentStream.beginText();
+		        contentStream.setFont(font, 12);
+		        contentStream.newLineAtOffset(50, 700);
+
+		        contentStream.showText("Ma HD: " + tblHoaDon.getValueAt(0, 0).toString());
+		        contentStream.newLineAtOffset(0, -20);
+		        contentStream.showText("Ngay Lap: " + tblHoaDon.getValueAt(0, 4).toString());
+		        contentStream.newLineAtOffset(0, -20);
+		        contentStream.showText("Nhan vien: " + tblHoaDon.getValueAt(0, 3).toString());
+		        contentStream.newLineAtOffset(0, -20);
+		        contentStream.showText("=====================================================================");
+		        contentStream.newLineAtOffset(0, -20);
+
+		        contentStream.showText("Ma SP");
+		        contentStream.newLineAtOffset(150, 0);
+		        contentStream.showText("Ten SanPham");
+		        contentStream.newLineAtOffset(160, 0);
+		        contentStream.showText("GiaBan");
+		        contentStream.newLineAtOffset(100, 0);
+		        contentStream.showText("SL");
+		        contentStream.newLineAtOffset(50, 0);
+		        contentStream.showText("ThanhTien");
+		        contentStream.newLineAtOffset(-450, -20);
+
+		        for (int i = 0; i < tblChITietHoaDon.getRowCount(); i++) {
+		            float xOffset = 60;
+
+		            for (int j = 0; j < tblChITietHoaDon.getColumnCount(); j++) {
+		                if (j == 2 || j == 5) {
+		                    continue; // bỏ qua cột 2 và 5
+		                }
+
+		                contentStream.showText(tblChITietHoaDon.getValueAt(i, j).toString());
+		                contentStream.newLineAtOffset(xOffset, 0);
+
+		                xOffset += 20; 
+		            }
+
+		            contentStream.newLineAtOffset(-200, -20); 
+		        }
+		        contentStream.newLineAtOffset(-220, -20);
+		        contentStream.showText("==========================================");
+		        contentStream.newLineAtOffset(-50, -20);
+		        contentStream.showText("Tong Tien: " + tblHoaDon.getValueAt(0, 5).toString());
+		        contentStream.newLineAtOffset(-50, -20);
+		        contentStream.showText("Cam on quy khach !!!!!!!!");
+
+
+		        contentStream.endText();
+		        contentStream.close();
+
+		        // Lưu
+		        String filePath = "src\\bill.pdf";
+		        document.save(filePath);
+
+		        document.close();
+
+		        JOptionPane.showMessageDialog(null, "Bill generated successfully.");
+		        return;
+		    } catch (IOException ex) {
+		        ex.printStackTrace();
+		        JOptionPane.showMessageDialog(null, "Error occurred while generating bill.");
+		    }
+		}
 	}
 
-	
 }
+

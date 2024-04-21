@@ -222,7 +222,7 @@ public class FrmDanhMucSanPham extends JPanel implements ActionListener {
 		btnLuu.setIcon(new ImageIcon("src/icon/luu.png"));
 		btnHuy.setIcon(new ImageIcon("src/icon/remove.png"));
 		btnLamMoi.setIcon(new ImageIcon("src/icon/loading.png"));
-
+		
 	}
 
 	public void DocDuLieu() {
@@ -403,14 +403,9 @@ public class FrmDanhMucSanPham extends JPanel implements ActionListener {
 			return false;
 		}
 
-		// kiểm tra tên danh mục có chứa ký tự đặc biệt hay không
-		if (!tenDM.matches("^[a-zA-Z0-9\\s]+$")) {
-			JOptionPane.showMessageDialog(this, "Tên danh mục chỉ được chứa các chữ cái, số và khoảng trắng");
-			txtTDM.requestFocus();
-			return false;
-		}
 
 		return true;
 	}
+
 
 }

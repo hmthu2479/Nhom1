@@ -478,12 +478,6 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 			dateNgaySinh.requestFocus();
 			return false;
 		}
-		// kiểm tra định dạng tên không được chứa kỳ tự đặc biệt
-		if(!txtHoTen.getText().matches("[a-zA-Z\\s]+")){
-			JOptionPane.showMessageDialog(this, "Họ tên không được chứa ký tự đặc biệt");
-			txtHoTen.requestFocus();
-			return false;
-		}
 		// kiểm tra định dạng email
 		if(!txtEmail.getText().matches("\\w+@\\w+(\\.\\w+){1,2}")){
 			JOptionPane.showMessageDialog(this, "Email phải có định dạng là xx@gmail.com");

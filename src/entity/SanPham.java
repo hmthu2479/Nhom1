@@ -7,11 +7,11 @@ public class SanPham {
     private double giaBan;
     private DanhMucSanPham danhMucSanPham;
     private NhaCungCapSanPham nhaCungCapSanPham;
-    private String ke;
+    private Ke ke;
 
     
     public SanPham(String maSanPham, String tenSanPham, int soLuong, double giaBan, DanhMucSanPham danhMucSanPham,
-			NhaCungCapSanPham nhaCungCapSanPham, String ke) {
+			NhaCungCapSanPham nhaCungCapSanPham, Ke ke) {
 		super();
 		this.maSanPham = maSanPham;
 		this.tenSanPham = tenSanPham;
@@ -77,11 +77,11 @@ public class SanPham {
 		this.nhaCungCapSanPham = nhaCungCapSanPham;
 	}
 
-	public String getKe() {
+	public Ke getKe() {
 		return ke;
 	}
 
-	public void setKe(String ke) {
+	public void setKe(Ke ke) {
 		this.ke = ke;
 	}
 

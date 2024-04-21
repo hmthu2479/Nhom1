@@ -413,12 +413,7 @@ public class FrmNhaCungCapSanPham extends JPanel implements ActionListener {
 			txtTenNCC.requestFocus();
 			return false;
 		}
-		// tên nhà cung cấp không được chứa kỳ tự đặc biệt
-		if(!(tenNCC.length() > 0 && tenNCC.matches("[a-zA-Z0-9 ]+"))) {
-			JOptionPane.showMessageDialog(this, "Error: Tên nhà cung cấp không được chứa ký tự đặc biệt");
-			txtTenNCC.requestFocus();
-			return false;
-		}
+
 		if(!(sdt.length() > 0 && sdt.matches("0\\d{9}"))) {
 			JOptionPane.showMessageDialog(this, "Error: Số điện thoại nhà cung cấp theo mẫu: 0\\d{9}");
 			txtSDT.requestFocus();

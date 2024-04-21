@@ -14,6 +14,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
     private FrmSanPham frmSanPham;
     private FrmDanhMucSanPham frmDanhMucSanPham;
     private FrmNhaCungCapSanPham frmNhaCungCapSanPham;
+    private FrmKe frmKe;
     private FrmNhanVien frmNhanVien;
     private FrmKhachHang frmKhachHang;
     private FrmBanHang frmBanHang;
@@ -31,6 +32,7 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         frmBanHang = new FrmBanHang();
         frmHoaDon = new FrmHoaDon();
         frmHoaDonDatHang = new FrmPhieuDatHang();
+        frmKe = new FrmKe();
 
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,6 +69,9 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         JMenuItem mntmNhaCungCap = new JMenuItem("Nhà cung cấp");
         mntmNhaCungCap.setFont(new Font("Arial", Font.PLAIN, 20));
         mnSanPham.add(mntmNhaCungCap);
+        JMenuItem mntmKe = new JMenuItem("Kệ");
+        mntmKe.setFont(new Font("Arial", Font.PLAIN, 20));
+        mnSanPham.add(mntmKe);
          /*
         MENU KHACH HANG
          */
@@ -141,6 +146,17 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
             public void actionPerformed(ActionEvent e) {
                 panelBody.removeAll();
                 panelBody.add(frmNhaCungCapSanPham);
+                panelBody.validate();
+            }
+        });
+        /*
+        Liên kết form kệ
+         */
+        mntmKe.addActionListener(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {
+                panelBody.removeAll();
+                panelBody.add(frmKe);
                 panelBody.validate();
             }
         });

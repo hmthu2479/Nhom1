@@ -432,12 +432,6 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 			txtTenKH.requestFocus();
 			return false;
 		}
-		if(!txtTenKH.getText().matches("[a-zA-Z\\s]+")){
-			JOptionPane.showMessageDialog(null, "Tên khách hàng không được chứa số và ký tự đặc biệt");
-			txtTenKH.requestFocus();
-			txtTenKH.selectAll();
-			return false;
-		}
 		if(txtSoDT.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Số điện thoại không được để trống");
 			txtSoDT.requestFocus();
