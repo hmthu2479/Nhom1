@@ -303,15 +303,21 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 		        boolean success = hd_dao.themHoaDonTuPhieu(phieuDatHangList, chiTietPhieuList, maHoaDon);
 
 		        if (success) {
-		            docDuLieuHD();
-		            modelCTPhieu.setRowCount(0);
-		            JOptionPane.showMessageDialog(null, "Thanh toán thành công !");
+		            boolean deleteSuccess = phieu_dao.xoaPhieu(maPhieu);
+		            if (deleteSuccess) {
+		                docDuLieuHD();
+		                modelCTPhieu.setRowCount(0);
+		                JOptionPane.showMessageDialog(null, "Thanh toán thành công !");
+		            } else {
+		                JOptionPane.showMessageDialog(null, "Lỗi xảy ra khi xóa phiếu sau khi thanh toán.");
+		            }
 		            return;
 		        } else {
 		            JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi tạo hóa đơn từ phiếu đặt hàng.");
 		        }
 		    }
 		}
+
 
 
 

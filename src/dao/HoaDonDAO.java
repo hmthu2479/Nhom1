@@ -106,39 +106,39 @@ public class HoaDonDAO {
 
     public boolean themHoaDonTuPhieu(ArrayList<PhieuDatHang> phieuDatHangList, List<ChiTietPhieuDatHang> chiTietPhieuList, String maHoaDon) {
         Connection con = null;
-        PreparedStatement statement = null;
-        ResultSet rs = null;
         ChiTietHoaDonDAO ctHoaDonDAO = new ChiTietHoaDonDAO(); 
 
         try {
             con = ConnectDB.getConnection();
 
+            // Lấy thông tin từ danh sách phiếu đặt hàng
             PhieuDatHang phieuDatHang = phieuDatHangList.get(0); 
             KhachHang kh = phieuDatHang.getKhachHang();
             NhanVien nv = phieuDatHang.getNhanVien();
             Date ngayLapHD = phieuDatHang.getngayLap();
             HoaDon hoaDon = new HoaDon(maHoaDon, kh, nv, ngayLapHD);
 
-            boolean success = themHoaDon(hoaDon);
-            if (!success) {
+            // Thêm hóa đơn
+            if (!themHoaDon(hoaDon)) {
                 return false;
             }
 
+            // Thêm các chi tiết hóa đơn từ danh sách chi tiết phiếu
             for (ChiTietPhieuDatHang chiTiet : chiTietPhieuList) {
                 SanPham sanPham = chiTiet.getSanPham();
                 int soLuong = chiTiet.getSoLuong();
                 ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(sanPham, hoaDon, soLuong);
                 
-                success = ctHoaDonDAO.themCTHoaDon(chiTietHoaDon);
-                if (!success) {
+                // Nếu thêm chi tiết hóa đơn thất bại, trả về false
+                if (!ctHoaDonDAO.themCTHoaDon(chiTietHoaDon)) {
                     return false;
                 }
             }
-
+            // Trả về true nếu tất cả thành công
             return true;
         } finally {
-
         }
     }
+
 
 }

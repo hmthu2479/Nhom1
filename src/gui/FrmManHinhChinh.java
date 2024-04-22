@@ -52,13 +52,14 @@ public class FrmManHinhChinh extends JFrame implements ActionListener, MouseList
         // thêm màu cho menu với  mã màu là #716DF2
         menuBar.setBackground(Color.decode("#716DF2"));
         contentPane.add(menuBar);
+        menuBar.setBorder(new EmptyBorder(5, 20, 5, 5));
 
-        JMenu mnSanPham = new JMenu("SẢN PHẨM");
+        JMenu mnSanPham = new JMenu("Sản phẩm");
         mnSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
         // thay đổi màu chữ thành màu trắng
         mnSanPham.setForeground(Color.WHITE);
         menuBar.add(mnSanPham);
-        JMenuItem mntmThongTinSanPham = new JMenuItem("Thông tin SẢN PHẨM");
+        JMenuItem mntmThongTinSanPham = new JMenuItem("Thông tin sản phẩm");
         mntmThongTinSanPham.setFont(new Font("Arial", Font.PLAIN, 20));
         // khi  chạy chương trình lên thì sẽ hiển thị màn hình mntmThongTinSanPham
 

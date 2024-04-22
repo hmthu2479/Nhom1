@@ -62,30 +62,27 @@ public class PhieuDatHangDAO {
 
     public boolean xoaPhieu(String maPhieu) {
         Connection con = null;
-        PreparedStatement deleteChiTietStatement = null;
-        PreparedStatement deletePhieuStatement = null;
+        PreparedStatement xoaChiTietStatement = null;
+        PreparedStatement xoaPhieuStatement = null;
         int n = 0;
         try {
             con = ConnectDB.getInstance().getConnection();
-            con.setAutoCommit(false); // Start transaction
+            con.setAutoCommit(false); 
+            String xoaChiTietSQL = "DELETE FROM ChiTietPhieu WHERE maPhieu = ?";
+            xoaChiTietStatement = con.prepareStatement(xoaChiTietSQL);
+            xoaChiTietStatement.setString(1, maPhieu);
+            n = xoaChiTietStatement.executeUpdate();
+
+            String xoaPhieuSQL = "DELETE FROM PhieuDatHang WHERE maPhieu = ?";
+            xoaPhieuStatement = con.prepareStatement(xoaPhieuSQL);
+            xoaPhieuStatement.setString(1, maPhieu);
+            n = xoaPhieuStatement.executeUpdate();
             
-            // First, delete related entries from ChiTietPhieuDatHang table
-            String deleteChiTietSQL = "DELETE FROM ChiTietPhieu WHERE maPhieu = ?";
-            deleteChiTietStatement = con.prepareStatement(deleteChiTietSQL);
-            deleteChiTietStatement.setString(1, maPhieu);
-            n = deleteChiTietStatement.executeUpdate();
-            
-            // Then, delete the PhieuDatHang entry
-            String deletePhieuSQL = "DELETE FROM PhieuDatHang WHERE maPhieu = ?";
-            deletePhieuStatement = con.prepareStatement(deletePhieuSQL);
-            deletePhieuStatement.setString(1, maPhieu);
-            n = deletePhieuStatement.executeUpdate();
-            
-            con.commit(); // Commit transaction
+            con.commit(); 
         } catch (SQLException e) {
             try {
                 if (con != null) {
-                    con.rollback(); // Rollback transaction if there's an error
+                    con.rollback();
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();

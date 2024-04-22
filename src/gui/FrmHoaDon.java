@@ -88,8 +88,6 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		ncc_DAO = new NhaCungCapDAO();
 		JPanel panelTitle = new JPanel();
 		JLabel lblTitLe = new JLabel("DANH SÁCH HOÁ ĐƠN");
-		lblTitLe.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblTitLe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitLe.setFont(new Font("Arial", Font.BOLD, 25));
 		panelTitle.add(lblTitLe);
 		panelTitle.setBounds(0, 0, 1540, 60);
@@ -129,7 +127,6 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 
 		JLabel lblNewLabel = new JLabel("Tìm Hóa Đơn");
 		panel.add(lblNewLabel);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 
 		btnInHoaDon = new JButton("In Hóa Đơn");
@@ -148,7 +145,7 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		btnLamMoi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 192, 1540, 247);
+		scrollPane_1.setBounds(0, 182, 1540, 247);
 		add(scrollPane_1);
 		String[] header1 = { "Mã Hóa Đơn", "Tên Khách Hàng", "Số Điện Thoại", "Nhân Viên Lập Đơn", "Ngày Thanh Toán","Tổng Tiền" };
 		modelHoaDon = new DefaultTableModel(header1, 0);

@@ -79,10 +79,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 
 		JPanel pMain = new JPanel();
-		pMain.setSize(new Dimension(1550, 1030));
-		pMain.setPreferredSize(new Dimension(1550, 1030));
-		pMain.setMinimumSize(new Dimension(1550, 1030));
-		pMain.setMaximumSize(new Dimension(1550, 1030));
 		pMain.setBounds(0, 0, 1540, 826);
 		add(pMain);
 		pMain.setLayout(null);
@@ -201,7 +197,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		ArrayList<NhanVien> dsnv = nv_dao.layThongTin();
 		cbNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		for (NhanVien nv : dsnv) {
-
 			cbNhanVien.addItem(nv.getHoTen());
 		}
 		cbNhanVien.setBounds(39, 62, 366, 40);
