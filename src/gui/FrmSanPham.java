@@ -33,7 +33,6 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 
 	private JComboBox<String> cbxDanhMuc;
 	private JComboBox<String> cbxNhaCungCap;
-//	private JDateChooser dateNgayNhap;
 	private JTextField txtGiaBan;
 	private JTextField txtSoLuong;
 	private DefaultTableModel model;
@@ -276,10 +275,10 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 				txtMaSanPham.setText(model.getValueAt(i, 0).toString());
 				txtTenSanPham.setText(model.getValueAt(i, 1).toString());
 				cbxNhaCungCap.setSelectedItem(model.getValueAt(i, 2).toString());
-				txtGiaBan.setText(model.getValueAt(i, 4).toString());
-				txtSoLuong.setText(model.getValueAt(i, 5).toString());
-				cbxDanhMuc.setSelectedItem(model.getValueAt(i, 6).toString());
-				cbxKe.setSelectedItem(model.getValueAt(i, 7).toString());
+				txtGiaBan.setText(model.getValueAt(i, 3).toString());
+				txtSoLuong.setText(model.getValueAt(i, 4).toString());
+				cbxDanhMuc.setSelectedItem(model.getValueAt(i, 5).toString());
+				cbxKe.setSelectedItem(model.getValueAt(i, 6).toString());
 				txtMaSanPham.setEditable(false);
 			}
 		});
@@ -338,7 +337,7 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 
 			btnLuu.setVisible(true);
 			btnHuy.setVisible(true);
-
+			txtMaSanPham.setText(TaoMaSP());
 
 			n = 1;
 		}
@@ -371,7 +370,10 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 						}
 					}
 					SanPham sp = new SanPham(maSanPham, tenSanPham, soLuong, giaBan, danhMuc, nhacungcap,k);
-					if (sp_dao.themSanPham(sp)) {
+					if(sp_dao.kiemTraMaSanPham(maSanPham)) {
+						JOptionPane.showMessageDialog(this, "Trung ma!");
+					}else {
+						if (sp_dao.themSanPham(sp)) {
 						JOptionPane.showMessageDialog(null, "Thêm thành công");
 						btnTim.setVisible(true);
 						btnThem.setVisible(true);
@@ -385,6 +387,8 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 						docDuLieu();
 						XoaTrang();
 					}
+					}
+					
 				}
 			}
 		}
@@ -491,10 +495,10 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 			filters.add(RowFilter.regexFilter(maSanPham, 0));
 			filters.add(RowFilter.regexFilter(tenSanPham, 1));
 			filters.add(RowFilter.regexFilter(nhaCungCap, 2));
-			filters.add(RowFilter.regexFilter(giaBan, 4));
-			filters.add(RowFilter.regexFilter(soLuong, 5));
-			filters.add(RowFilter.regexFilter(danhMuc, 6));
-			filters.add(RowFilter.regexFilter(ke, 7));
+			filters.add(RowFilter.regexFilter(giaBan, 3));
+			filters.add(RowFilter.regexFilter(soLuong, 4));
+			filters.add(RowFilter.regexFilter(danhMuc, 5));
+			filters.add(RowFilter.regexFilter(ke, 6));
 			RowFilter<Object,Object> filter = RowFilter.andFilter(filters);
 			sorter.setRowFilter(filter);
 
@@ -535,7 +539,34 @@ public class FrmSanPham extends JPanel  implements ActionListener {
 			}
 		}
 	}
-	
+	public String TaoMaSP() {
+		// TODO Auto-generated method stub
+		String masp = "";
+		double n = (Math.random())*((1000-1)+1)+1;
+		int i = (int) n,a=0;
+		
+		do {
+			if(i<10) {
+				masp = "SP000"+i;
+			}
+			if(i<100) {
+				masp = "SP00"+i;
+			}
+			if(i<1000) {
+				masp = "SP0"+i;
+			}
+			if(i<10000) {
+				masp = "SP"+i;
+			}
+			if(!sp_dao.kiemTraMaSanPham(masp)) {
+				a = 0;
+			}else {
+				a=1;
+			}
+		}while(a !=0);
+		txtMaSanPham.setText(masp);
+		return masp;
+	}
 	private boolean validData() {
 		if (txtTenSanPham.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "Tên sản phẩm không được để trống");

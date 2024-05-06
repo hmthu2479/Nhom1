@@ -32,7 +32,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 	private DefaultTableModel model_sanPham, model_DonHang;
 	private SanPhamDAO sp_dao;
 	private JButton btnTimKiemSP, btnThem, btnXoaSanPham;
-	private JComboBox<String> cBDanhMuc, cBNCC;
 	private double thanhtien;
 	private int soluong;
 	private JSpinner spSoLuong;
@@ -43,7 +42,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 	NumberFormat vn = NumberFormat.getInstance(localeVN);
 	NumberFormat DF = NumberFormat.getInstance(localDF);
 	int n = 1;
-
 	private JButton btnLamMoi;
 	private JButton btnTimKH;
 	private JButton btnThanhToan;
@@ -69,7 +67,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		ncc_dao = new NhaCungCapDAO();
 		kh_dao = new KhachHangDAO();
 		k_dao = new KeDAO();
-
 		nv_dao = new NhanVienDAO();
 		hd_Dao = new HoaDonDAO();
 		ctHD_dao = new ChiTietHoaDonDAO();
@@ -96,8 +93,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 		JPanel pBody = new JPanel();
 		pBody.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		pBody.setBorder(new TitledBorder(null, "Tìm kiếm Sản Phẩm", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		pBody.setBorder(new TitledBorder(null, "Tìm kiếm Sản Phẩm", TitledBorder.LEADING,TitledBorder.TOP, null, null));
 		pBody.setName("Tìm kiếm Sản Phẩm");
 		pBody.setBounds(10, 41, 826, 148);
 		pMain.add(pBody);
@@ -263,9 +259,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		pBody_1.setLayout(null);
 		pBody_1.setName("Tìm kiếm Sản Phẩm");
 		pBody_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		pBody_1.setBorder(new TitledBorder(null, "Tìm kiếm khách hàng", TitledBorder.LEADING,
-
-				TitledBorder.TOP, null, null));
+		pBody_1.setBorder(new TitledBorder(null, "Tìm kiếm khách hàng", TitledBorder.LEADING,TitledBorder.TOP, null, null));
 		pBody_1.setBounds(847, 41, 693, 148);
 		pMain.add(pBody_1);
 
@@ -314,7 +308,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 		docDuLieuSanPham();
 
-		// thay đổi màu của tất cả các buttom thành màu #716DF2 và chữ của các buttom thành màu trắng
+		// thay đổi màu của tất cả các button và chữ của các button
 		btnTimKiemSP.setBackground(new Color(113, 109, 242));
 		btnTimKiemSP.setForeground(Color.WHITE);
 		btnThem.setBackground(new Color(113, 109, 242));
@@ -337,13 +331,13 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		pMain.setBackground(Color.WHITE);
 		cbNhanVien.setBackground(new Color(148, 162, 242));
 		spSoLuong.setBackground(new Color(148, 162, 242));
-		// thay  đổi text của các combobox thành trắng
+		// thay đổi text của các combobox
 		cbNhanVien.setForeground(Color.WHITE);
 
-		// thay đổi màu của table thành màu #ECF2FF
+		// thay đổi màu của table
 		tblDonHang.setBackground(new Color(236, 242, 255));
 		tblSanPham.setBackground(new Color(236, 242, 255));
-		// thay  đổi màu header của table thành màu #94A2F2
+		// thay đổi màu header của table
 		tblDonHang.getTableHeader().setBackground(new Color(148, 162, 242));
 		tblSanPham.getTableHeader().setBackground(new Color(148, 162, 242));
 		pBody.setBackground(new Color(236, 242, 255));
@@ -352,7 +346,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 
 	}
-		//TODO đọc dữ liệu Sản Phẩm
+		//đọc dữ liệu Sản Phẩm
 			public void docDuLieuSanPham() {
 			    ArrayList<SanPham> dsSanPham = sp_dao.layThongTin();
 			    model_sanPham.setRowCount(0);
@@ -413,14 +407,7 @@ public class FrmBanHang extends JPanel implements ActionListener {
 		                String tenKe = layTenKe(sp.getKe().getMaKe());
 		                
 		                model_sanPham.addRow(new Object[]{
-		                    sp.getMaSanPham(), 
-		                    sp.getTenSanPham(), 
-		                    tenNCC, 
-		                    sp.getGiaBan(), 
-		                    sp.getSoLuong(), 
-		                    tenDM,
-		                    tenKe
-		                });
+		                    sp.getMaSanPham(), sp.getTenSanPham(), tenNCC, sp.getGiaBan(), sp.getSoLuong(), tenDM, tenKe });
 		            }
 		        }
 		    }
@@ -479,7 +466,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 				int a = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa ?", null, JOptionPane.YES_NO_OPTION);
 				if (a == JOptionPane.YES_OPTION) {
 					// trả về số lượng ban đầu
-					String maSP = tblDonHang.getValueAt(r, 1).toString();
 					docDuLieuSanPham();
 					model_DonHang.removeRow(r);
 					n--
@@ -508,7 +494,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 		}
 		if(o.equals(btnLamMoiSP)){
-			//txtMaSP.setText("");
 			txtTenSP.setText("");
 			tblSanPham.setRowSorter(null);
 			docDuLieuSanPham();
@@ -561,21 +546,20 @@ public class FrmBanHang extends JPanel implements ActionListener {
 						for (int j = 0; j < row; j++) {
 							String maSP = model_DonHang.getValueAt(j, 1).toString();
 							String soLuong = model_DonHang.getValueAt(j, 7).toString();
-
 							SanPham sp = new SanPham(maSP);
-							int soluongsp = Integer.parseInt(soLuong);
-							int sl = Integer.parseInt(soLuongSP);
+							int soluongDaChon = Integer.parseInt(soLuong);
+							int slTrongKho = Integer.parseInt(soLuongSP);
 
 
-							ChiTietHoaDon cthd = new ChiTietHoaDon(sp, hd,soluongsp);
+							ChiTietHoaDon cthd = new ChiTietHoaDon(sp, hd,soluongDaChon);
 							ctHD_dao.themCTHoaDon(cthd);
 							// trừ số lượng trong bảng sản phẩm
-							sp_dao.CapNhapSoLuong(maSP, sl-soluongsp);
+							sp_dao.CapNhapSoLuong(maSP, slTrongKho-soluongDaChon);
+							// Làm mới bảng sản phẩm
 							docDuLieuSanPham();
 
 						}
-							JOptionPane.showMessageDialog(null, "Thanh  toán thành công");
-							// trừ số lượng trong bảng sản phẩm
+							JOptionPane.showMessageDialog(null, "Thanh toán thành công");
 
 							tblSanPham.setRowSorter(null);
 							txtTongTien.setText("");
@@ -585,9 +569,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 								model_DonHang.removeRow(t);
 								n--;
 							}
-							// trả về số lượng ban đầu
-
-							// trả  về thành tiền
 							txtTongTien.setText("");
 					}
 				}
@@ -636,8 +617,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 
 							}
 								JOptionPane.showMessageDialog(null, "Đặt hàng thành công");
-								// trừ số lượng trong bảng sản phẩm
-
 								tblSanPham.setRowSorter(null);
 								txtTongTien.setText("");
 								// xóa hết dữ liệu trong bảng đơn hàng
@@ -646,9 +625,6 @@ public class FrmBanHang extends JPanel implements ActionListener {
 									model_DonHang.removeRow(t);
 									n--;
 								}
-								// trả về số lượng ban đầu
-
-								// trả  về thành tiền
 								txtTongTien.setText("");
 						}
 					}

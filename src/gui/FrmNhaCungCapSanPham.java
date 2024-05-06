@@ -277,7 +277,11 @@ public class FrmNhaCungCapSanPham extends JPanel implements ActionListener {
 					String DiaChi = txtDiaChi.getText();
 					String SDT = txtSDT.getText();
 					NhaCungCapSanPham ncc = new NhaCungCapSanPham(maNCC, TenNCC, DiaChi, SDT);
-					if(ncc_Dao.ThemNhaCungCap(ncc)){
+					if(ncc_Dao.KiemTraMa(maNCC)) {
+						JOptionPane.showMessageDialog(this, "Trung ma!");
+					}
+					else {
+						if(ncc_Dao.ThemNhaCungCap(ncc)){
 						JOptionPane.showMessageDialog(null, "Thêm thành công");
 						DocDuLieu();
 						XoaTrang();
@@ -289,6 +293,8 @@ public class FrmNhaCungCapSanPham extends JPanel implements ActionListener {
 
 						btnLuu.setVisible(false);
 						btnHuy.setVisible(false);
+					}
+					
 					}
 
 				}

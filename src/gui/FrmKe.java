@@ -262,8 +262,15 @@ public class FrmKe extends JPanel implements ActionListener {
 					String vt = txtVT.getText();
 					ArrayList<Ke> dsk = k_dao.laythongtin();
 					Ke k = new Ke(maK,tenK,vt);
-					k_dao.themKe(k);
-					JOptionPane.showMessageDialog(this, "Thêm kệ thành công");
+					if(k_dao.kiemtraKe(maK)) {
+						JOptionPane.showMessageDialog(this, "Trung ma!");
+					}else {
+						if(k_dao.themKe(k)) {
+						JOptionPane.showMessageDialog(this, "Thêm kệ thành công");
+					}
+					}
+					
+					
 					btnTim.setVisible(true);
 					btnSua.setVisible(true);
 					btnXoa.setVisible(true);

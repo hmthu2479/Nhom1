@@ -266,8 +266,11 @@ public class FrmDanhMucSanPham extends JPanel implements ActionListener {
 					String TenDM = txtTDM.getText();
 					ArrayList<DanhMucSanPham> dsDM = dm_dao.layThongTin();
 					DanhMucSanPham dm = new DanhMucSanPham(maDM, TenDM);
-					dm_dao.themDanhMuc(dm);
-					JOptionPane.showMessageDialog(this,"Thêm danh mục thành công");
+					if(dm_dao.kiemTraMaDM(maDM)) {
+						JOptionPane.showMessageDialog(this, "Trung ma!");
+					}else {
+						if(dm_dao.themDanhMuc(dm)) {
+							JOptionPane.showMessageDialog(this,"Thêm danh mục thành công");
 					btnTim.setVisible(true);
 					btnSua.setVisible(true);
 					btnXoa.setVisible(true);
@@ -278,6 +281,10 @@ public class FrmDanhMucSanPham extends JPanel implements ActionListener {
 					btnHuy.setVisible(false);
 
 					txtMDM.setEditable(true);
+						}
+					
+					}
+					
 
 					DocDuLieu();
 					XoaTrang();

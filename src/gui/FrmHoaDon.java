@@ -295,12 +295,12 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		        document.addPage(page);
 		        // Thêm font
 		        PDType0Font font = PDType0Font.load(document, new File("src\\lib\\Helvetica.ttf")); 
-		        // Create a new instance of PDPageContentStream
+		        
 		        PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
 		        contentStream.beginText();
 		        contentStream.setFont(font, 12);
-		        contentStream.newLineAtOffset(50, 700);
+		        contentStream.newLineAtOffset(50, 750);
 
 		        contentStream.showText("Ma HD: " + tblHoaDon.getValueAt(0, 0).toString());
 		        contentStream.newLineAtOffset(0, -20);
@@ -308,43 +308,49 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		        contentStream.newLineAtOffset(0, -20);
 		        contentStream.showText("Nhan vien: " + tblHoaDon.getValueAt(0, 3).toString());
 		        contentStream.newLineAtOffset(0, -20);
-		        contentStream.showText("=====================================================================");
+		        contentStream.showText("Khach hang: " + tblHoaDon.getValueAt(0, 1).toString());
 		        contentStream.newLineAtOffset(0, -20);
+		        contentStream.showText("=====================================================================");
+		        contentStream.newLineAtOffset(10, -20);
 
+		        // Headers
 		        contentStream.showText("Ma SP");
-		        contentStream.newLineAtOffset(150, 0);
+		        contentStream.newLineAtOffset(110, 0);
 		        contentStream.showText("Ten SanPham");
-		        contentStream.newLineAtOffset(160, 0);
+		        contentStream.newLineAtOffset(140, 0);
 		        contentStream.showText("GiaBan");
-		        contentStream.newLineAtOffset(100, 0);
+		        contentStream.newLineAtOffset(95, 0);
 		        contentStream.showText("SL");
-		        contentStream.newLineAtOffset(50, 0);
+		        contentStream.newLineAtOffset(80, 0);
 		        contentStream.showText("ThanhTien");
-		        contentStream.newLineAtOffset(-450, -20);
+		        contentStream.newLineAtOffset(-430, -20);
 
 		        for (int i = 0; i < tblChITietHoaDon.getRowCount(); i++) {
-		            float xOffset = 60;
+		            float yOffset = 0;
+		            float xOffsetTenSP = 160; 
+		            float xOffsets = 95;
+		            float thanhTien = Float.parseFloat(tblChITietHoaDon.getValueAt(i, 3).toString()) * Float.parseFloat(tblChITietHoaDon.getValueAt(i, 4).toString()); // Calculate ThanhTien
 
 		            for (int j = 0; j < tblChITietHoaDon.getColumnCount(); j++) {
 		                if (j == 2 || j == 5) {
-		                    continue; // bỏ qua cột 2 và 5
+		                    continue; //skip cột 2 vs 5
 		                }
+		                float xOffset = (j == 1) ? xOffsetTenSP : xOffsets;
 
 		                contentStream.showText(tblChITietHoaDon.getValueAt(i, j).toString());
-		                contentStream.newLineAtOffset(xOffset, 0);
-
-		                xOffset += 20; 
+		                contentStream.newLineAtOffset(xOffset, yOffset);
 		            }
 
-		            contentStream.newLineAtOffset(-200, -20); 
+		            contentStream.showText(String.valueOf(thanhTien));
+		            contentStream.newLineAtOffset(-445, -20);
 		        }
-		        contentStream.newLineAtOffset(-220, -20);
-		        contentStream.showText("==========================================");
-		        contentStream.newLineAtOffset(-50, -20);
-		        contentStream.showText("Tong Tien: " + tblHoaDon.getValueAt(0, 5).toString());
-		        contentStream.newLineAtOffset(-50, -20);
-		        contentStream.showText("Cam on quy khach !!!!!!!!");
 
+		        contentStream.newLineAtOffset(90, -20);
+		        contentStream.showText("==============================================");
+		        contentStream.newLineAtOffset(70, -20);
+		        contentStream.showText("Tong Tien: " + tblHoaDon.getValueAt(0, 5).toString());
+		        contentStream.newLineAtOffset(15, -20);
+		        contentStream.showText("Cam on quy khach !!!!!!!!");
 
 		        contentStream.endText();
 		        contentStream.close();
@@ -352,14 +358,12 @@ public class FrmHoaDon extends JPanel implements ActionListener {
 		        // Lưu
 		        String filePath = "src\\bill.pdf";
 		        document.save(filePath);
-
 		        document.close();
 
-		        JOptionPane.showMessageDialog(null, "Bill generated successfully.");
-		        return;
+		        JOptionPane.showMessageDialog(null, "Xuất bill thành công !");
 		    } catch (IOException ex) {
 		        ex.printStackTrace();
-		        JOptionPane.showMessageDialog(null, "Error occurred while generating bill.");
+		        JOptionPane.showMessageDialog(null, "Lỗi không thể xuất bill");
 		    }
 		}
 	}

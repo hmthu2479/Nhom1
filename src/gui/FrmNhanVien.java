@@ -32,40 +32,38 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 	private JDateChooser dateNgaySinh;
 	private DefaultTableModel model;
 	private JButton btnThem, btnXoa, btnSua, btnLuu, btnHuy;
-			private JButton btnLamMoi;
+	private JButton btnLamMoi;
 	private JButton btnTim;
 	int n = 0;
 	private NhanVienDAO nv_Dao;
 
 
-	/**
-	 * Create the panel.
-	 */
 
 	public FrmNhanVien () {
 		setMaximumSize(new Dimension(1500, 1030));
 		setMinimumSize(new Dimension(1500, 1030));
-		setMaximumSize(new Dimension(1500, 1030));
 
-		/**
-		 *
-		 */
 
 		nv_Dao = new NhanVienDAO();
 		setSize(new Dimension(1550, 845));
 		setLayout(null);
+		
+		
+		//tiêu đề
 		JPanel panelTitle = new JPanel();
-
 		panelTitle.setBounds(0, 0, 1540, 60);
+		add(panelTitle);
+		panelTitle.setBackground(new Color(148, 162, 242));
+		
 		JLabel lblTitLe = new JLabel("THÔNG TIN NHÂN VIÊN");
 		lblTitLe.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblTitLe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitLe.setFont(new Font("Arial", Font.BOLD, 25));
 		lblTitLe.setBounds(0, 10, 1540, 49);
 		panelTitle.add(lblTitLe);
-		add(panelTitle);
-		panelTitle.setBackground(new Color(148, 162, 242));
 
+		
+		//thông tin nhân viên
 		JPanel panelThongTin = new JPanel();
 		panelThongTin.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelThongTin.setBounds(0, 57, 1540, 240);
@@ -86,7 +84,6 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblMaNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblMaNhanVien.setBounds(150, 45, 200, 40);
 		panelThongTin.add(lblMaNhanVien);
-
 		txtMaNhanVien = new JTextField();
 		txtMaNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMaNhanVien.setBounds(290, 45, 200, 40);
@@ -97,7 +94,6 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblHoTen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblHoTen.setBounds(600, 45, 99, 40);
 		panelThongTin.add(lblHoTen);
-
 		txtHoTen = new JTextField();
 		txtHoTen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtHoTen.setColumns(10);
@@ -108,7 +104,6 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSDT.setBounds(1000, 45, 132, 40);
 		panelThongTin.add(lblSDT);
-
 		txtSDT = new JTextField();
 		txtSDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtSDT.setColumns(10);
@@ -119,7 +114,6 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblNgaySinh.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNgaySinh.setBounds(1000, 100, 99, 40);
 		panelThongTin.add(lblNgaySinh);
-
 		dateNgaySinh = new JDateChooser();
 		panelThongTin.add(dateNgaySinh);
 		dateNgaySinh.setDateFormatString("dd-MM-yyyy");
@@ -130,7 +124,6 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblEmail.setBounds(150, 100, 200, 40);
 		panelThongTin.add(lblEmail);
-
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEmail.setColumns(10);
@@ -141,10 +134,9 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblDiaChi.setBounds(600, 100, 87, 40);
 		panelThongTin.add(lblDiaChi);
-
 		cbxDiaChi = new JComboBox<String>();
 		cbxDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		// tạo 1 danh sách địa chỉ các tỉnh của việt nam lưu và combobox
+		// tạo 1 danh sách địa chỉ các tỉnh của Việt Nam lưu vào combobox
 		cbxDiaChi.setModel(new DefaultComboBoxModel<String>(new String[] { "Tất cả","Hà Nội", "Hồ Chí Minh", "Đà Nẵng",
 				"Hải Phòng", "Cần Thơ", "An Giang", "Bà Rịa - Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu",
 				"Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng",
@@ -157,9 +149,8 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		cbxDiaChi.setBounds(680, 100, 200, 40);
 		panelThongTin.add(cbxDiaChi);
 
-/*
-		Nút tìm kiếm
-		 */
+		
+		//nút tìm kiếm
 		btnTim = new JButton("Tìm kiếm");
 		btnTim.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnTim.setBounds(190, 165, 200, 50);
@@ -184,22 +175,25 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		btnSua.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnSua.setBounds(1200, 165, 200, 50);
 		panelThongTin.add(btnSua);
-
+		//nút lưu
 		btnLuu = new JButton("Lưu");
 		btnLuu.setVisible(false);
 		btnLuu.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnLuu.setBounds(450, 165, 200, 50);
 		panelThongTin.add(btnLuu);
-
+		//nút hủy
 		btnHuy = new JButton("Hủy");
 		btnHuy.setVisible(false);
 		btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnHuy.setBounds(700, 165, 200, 50);
 		panelThongTin.add(btnHuy);
 
+		
+		//table DS nhân viên
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 338, 1540, 485);
 		add(scrollPane_1);
+		//khởi tạo table
 		String[] Header = { "Mã nhân viên", "Họ tên", "Địa chỉ", "Ngày Sinh", "Số điện thoại","Email" };
 		model = new DefaultTableModel(Header, 0);
 		tblNhanVien = new JTable(model);
@@ -210,6 +204,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = tblNhanVien.getSelectedRow();
+				//hiển thị thông tin
 				txtMaNhanVien.setText(model.getValueAt(row, 0).toString());
 				txtHoTen.setText(model.getValueAt(row, 1).toString());
 				txtSDT.setText(model.getValueAt(row, 4).toString());
@@ -227,6 +222,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		lblTiTleTable.setBounds(0, 307, 1540, 21);
 		add(lblTiTleTable);
 
+		
 		btnTim.addActionListener(this);
 		btnThem.addActionListener(this);
 		btnSua.addActionListener(this);
@@ -235,12 +231,8 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		btnHuy.addActionListener(this);
 		btnLamMoi.addActionListener(this);
 
-		/*
-		TODO cài đặt giao diện
-		 */
-		// them màu cho panel với mã màu là #94A2F2
 
-		// thay đổi màu của tất cả các buttom thành màu #716DF2 và chữ của các buttom thành màu trắng
+		// thay đổi màu của tất cả các button và chữ của các button
 		btnTim.setBackground(new Color(113, 109, 242));
 		btnTim.setForeground(Color.WHITE);
 		btnThem.setBackground(new Color(113, 109, 242));
@@ -255,18 +247,18 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		btnHuy.setForeground(Color.WHITE);
 		btnLamMoi.setBackground(new Color(113, 109, 242));
 		btnLamMoi.setForeground(Color.WHITE);
-		// thay đổi màu combobox thành màu #95BDFF
+		// thay đổi màu combobox
 		cbxDiaChi.setBackground(new Color(148, 162, 242));
 		cbxDiaChi.setForeground(Color.WHITE);
-		// thay   đổi màu nên các panel thành #ECF2FF
+		// thay đổi màu nên các panel
 		panelThongTin.setBackground(new Color(236, 242, 255));
 		lblTiTleTable.setForeground(Color.WHITE);
-		// thay đổi màu background thành #95BDFF
+		// thay đổi màu background
 		setBackground(new Color(149, 189, 255));
 		lblTitLe.setForeground(Color.WHITE);
-		// thay đổi màu của table thành màu #ECF2FF
+		// thay đổi màu của table
 		tblNhanVien.setBackground(new Color(236, 242, 255));
-		// thay  đổi màu header của table thành màu #94A2F2
+		// thay  đổi màu header của table
 		tblNhanVien.getTableHeader().setBackground(new Color(148, 162, 242));
 
 
@@ -293,7 +285,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		}
 		if(o.equals(btnLuu)) {
 			if (n == 1) {
-				if (validData()) {
+				if (validData()) { //kiểm tra dữ liệu nhập vào
 					String maNV = txtMaNhanVien.getText();
 					String hoTen = txtHoTen.getText();
 					String soDT = txtSDT.getText();
@@ -301,6 +293,12 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 					String diaChi = cbxDiaChi.getSelectedItem().toString();
 					String email = txtEmail.getText();
 					NhanVien nv = new NhanVien(maNV, hoTen, ngaySinh, soDT, diaChi, email);
+					
+					if(soDT.equals(soDT)) {
+						JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
 					if (nv_Dao.themNhanVien(nv)) {
 						JOptionPane.showMessageDialog(null, "Thêm thành công");
 						btnTim.setVisible(true);
@@ -351,6 +349,10 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 						String diaChi = cbxDiaChi.getSelectedItem().toString();
 						String email = txtEmail.getText();
 						NhanVien nv = new NhanVien(maNV, hoTen, ngaySinh, soDT, diaChi, email);
+						if(soDT.equals(soDT)) {
+							JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
 						int action = JOptionPane.showConfirmDialog(null, "Bạn có muốn cập nhật nhân viên này không?", "Cập nhật nhân viên", JOptionPane.YES_NO_OPTION);
 						if(action == JOptionPane.YES_OPTION) {
 							if (nv_Dao.capNhatNhanVien(nv)) {
@@ -380,6 +382,10 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 				}
 			}
 			if(o.equals(btnTim)){
+				if(txtMaNhanVien.getText().equals("") && txtHoTen.getText().equals("") && txtSDT.getText().equals("") && txtEmail.getText().equals("") && cbxDiaChi.getSelectedIndex() == 0 && dateNgaySinh.getDate() == null) {
+					JOptionPane.showMessageDialog(null, "Nhập thông tin cần tìm");
+					return;
+				}
 				String maNV = txtMaNhanVien.getText();
 				String hoTen = txtHoTen.getText();
 				String soDT = txtSDT.getText();
@@ -403,8 +409,12 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 				filters.add(RowFilter.regexFilter(ngaySinh, 3));
 				filters.add(RowFilter.regexFilter(soDT, 4));
 				filters.add(RowFilter.regexFilter(email, 5));
-			RowFilter<Object,Object> filter = RowFilter.andFilter(filters);
-			sorter.setRowFilter(filter);
+				RowFilter<Object,Object> filter = RowFilter.andFilter(filters);
+				sorter.setRowFilter(filter);
+				if (tblNhanVien.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên phù hợp");
+				}
+
 			}
 
     }
@@ -427,6 +437,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 		txtEmail.setText("");
 		txtMaNhanVien.setEditable(true);
 	}
+	
 	//Hàm tạo mã nhân viên tự động
 	public String taoMaNV() {
 		String maNV = "";
@@ -456,6 +467,7 @@ public class FrmNhanVien extends JPanel implements ActionListener {
 
 		return maNV;
 	}
+	
 	// kiểm tra dữ liệu nhập vào
 	private boolean validData(){
 		if(txtHoTen.getText().equals("")){

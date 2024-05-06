@@ -60,6 +60,7 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		panelTitle.setBackground(new Color(148, 162, 242));
 
 
+		//thông tin khách hàng
 		JPanel panelKhachHang = new JPanel();
 		panelKhachHang.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelKhachHang.setBounds(0, 57, 1540, 237);
@@ -80,7 +81,6 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		lblMaKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblMaKH.setBounds(150, 45, 200, 40);
 		panelKhachHang.add(lblMaKH);
-
 		txtMaKH = new JTextField();
 		txtMaKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMaKH.setBounds(290, 45, 200, 40);
@@ -91,7 +91,6 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		lblTenKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblTenKH.setBounds(600, 45, 99, 40);
 		panelKhachHang.add(lblTenKH);
-
 		txtTenKH = new JTextField();
 		txtTenKH.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTenKH.setColumns(10);
@@ -102,7 +101,6 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		lblSoDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSoDT.setBounds(1000, 45, 132, 40);
 		panelKhachHang.add(lblSoDT);
-
 		txtSoDT = new JTextField();
 		txtSoDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtSoDT.setColumns(10);
@@ -113,26 +111,24 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblEmail.setBounds(150, 100, 200, 40);
 		panelKhachHang.add(lblEmail);
-
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(290, 100, 200, 40);
 		panelKhachHang.add(txtEmail);
 
-
 		JLabel lblDiaChi = new JLabel("Địa Chỉ");
 		lblDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblDiaChi.setBounds(600, 100, 99, 40);
 		panelKhachHang.add(lblDiaChi);
-
 		txtDiaChi = new JTextField();
 		txtDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtDiaChi.setColumns(10);
 		txtDiaChi.setBounds(680, 100, 300, 40);
 		panelKhachHang.add(txtDiaChi);
 
-
+		
+		//nút tìm kiếm
 		btnTim = new JButton("Tìm kiếm");
 		btnTim.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnTim.setBounds(200, 165, 200, 50);
@@ -154,15 +150,24 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		panelKhachHang.add(btnLamMoi);
 		// nút cập nhật
 		btnSua = new JButton("Cập nhật");
-		btnSua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnSua.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnSua.setBounds(1200, 165, 200, 50);
 		panelKhachHang.add(btnSua);
+		// nút lưu
+		btnLuu = new JButton("Lưu");
+		btnLuu.setVisible(false);
+		btnLuu.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnLuu.setBounds(450, 165, 200, 50);
+		panelKhachHang.add(btnLuu);
+		//nút hủy
+		btnHuy = new JButton("Hủy");
+		btnHuy.setVisible(false);
+		btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnHuy.setBounds(700, 165, 200, 50);
+		panelKhachHang.add(btnHuy);
 
 
+		//table DSKH
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 359, 1540, 464);
 		add(scrollPane_1);
@@ -172,34 +177,6 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 16));
 		scrollPane_1.setViewportView(table);
-
-		JLabel lblTitle_Table = new JLabel("DANH SÁCH KHÁCH HÀNG");
-		lblTitle_Table.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle_Table.setFont(new Font("Arial", Font.BOLD, 20));
-		lblTitle_Table.setBounds(0, 315, 1540, 45);
-		add(lblTitle_Table);
-
-		btnLuu = new JButton("Lưu");
-		btnLuu.setVisible(false);
-		btnLuu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnLuu.setBounds(450, 165, 200, 50);
-		panelKhachHang.add(btnLuu);
-
-		btnHuy = new JButton("Hủy");
-		btnHuy.setVisible(false);
-		btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnHuy.setBounds(700, 165, 200, 50);
-		panelKhachHang.add(btnHuy);
-
-
-		btnTim.addActionListener(this);
-		btnThem.addActionListener(this);
-		btnSua.addActionListener(this);
-		btnXoa.addActionListener(this);
-		;
-		btnLuu.addActionListener(this);
-		btnHuy.addActionListener(this);
-		btnLamMoi.addActionListener(this);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -214,11 +191,24 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		});
 		docDuLieu();
 
-		/*
-		TODO cài đặt giao diện
-		 */
-		// them màu cho panel với mã màu là #94A2F2
-		// thay đổi màu của tất cả các buttom thành màu #716DF2 và chữ của các buttom thành màu trắng
+		JLabel lblTitle_Table = new JLabel("DANH SÁCH KHÁCH HÀNG");
+		lblTitle_Table.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle_Table.setFont(new Font("Arial", Font.BOLD, 20));
+		lblTitle_Table.setBounds(0, 315, 1540, 45);
+		add(lblTitle_Table);
+
+		
+
+		btnTim.addActionListener(this);
+		btnThem.addActionListener(this);
+		btnSua.addActionListener(this);
+		btnXoa.addActionListener(this);
+		btnLuu.addActionListener(this);
+		btnHuy.addActionListener(this);
+		btnLamMoi.addActionListener(this);
+		
+
+		// thay đổi màu của tất cả các button và chữ của các button
 		btnTim.setBackground(new Color(113, 109, 242));
 		btnTim.setForeground(Color.WHITE);
 		btnThem.setBackground(new Color(113, 109, 242));
@@ -233,15 +223,15 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		btnHuy.setForeground(Color.WHITE);
 		btnLamMoi.setBackground(new Color(113, 109, 242));
 		btnLamMoi.setForeground(Color.WHITE);
-		// thay   đổi màu nên các panel thành #ECF2FF
+		// thay đổi màu nên các panel
 		panelKhachHang.setBackground(new Color(236, 242, 255));
 		lblTitle_Table.setForeground(Color.WHITE);
-		// thay đổi màu background thành #95BDFF
+		// thay đổi màu background
 		setBackground(new Color(149, 189, 255));
 		lblTitLe.setForeground(Color.WHITE);
-		// thay đổi màu của table thành màu #ECF2FF
+		// thay đổi màu của table
 		table.setBackground(new Color(236, 242, 255));
-		// thay  đổi màu header của table thành màu #94A2F2
+		// thay  đổi màu header của table
 		table.getTableHeader().setBackground(new Color(148, 162, 242));
 
 		btnLamMoi.setIcon(new ImageIcon("src/icon/loading.png"));
@@ -276,6 +266,10 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 					String diaChi = txtDiaChi.getText();
 					KhachHang kh = new KhachHang(maKH, tenKH, soDT, email, diaChi);
 					kh_dao = new KhachHangDAO();
+					if(soDT.equals(soDT)) {
+						JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 					if(kh_dao.themKhachHang(kh)) {
 						JOptionPane.showMessageDialog(null, "Thêm thành công");
 						btnTim.setVisible(true);
@@ -333,6 +327,10 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 					String diaChi = txtDiaChi.getText();
 					KhachHang kh = new KhachHang(maKH, tenKH, soDT, email, diaChi);
 					kh_dao = new KhachHangDAO();
+					if(soDT.equals(soDT)) {
+						JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 					int action = JOptionPane.showConfirmDialog(null, "Bạn có muốn cập nhật không?", "Cập nhật", JOptionPane.YES_NO_OPTION);
 					if(action == JOptionPane.YES_OPTION) {
 						if (kh_dao.capNhatKhachHang(kh)) {
@@ -370,14 +368,16 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 				filters.add(RowFilter.regexFilter(diaChi, 4));
 				RowFilter<Object, Object> filter = RowFilter.andFilter(filters);
 				sorter.setRowFilter(filter);
+				if (table.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng phù hợp");
+				}
+
 			}
 		}
 
 	}
 
-	/*
-	Dùng để đọc dữ liệu từ database lên table
-	 */
+	//Dùng để đọc dữ liệu từ database lên table
 	public void docDuLieu() {
 		model.setRowCount(0);
 		ArrayList<KhachHang> list = kh_dao.layThongTin();
@@ -394,9 +394,8 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		 txtDiaChi.setText("");
 		 txtMaKH.setEditable(true);
 	}
-	/*
-	Tạo mã khách hàng tự động
-	 */
+	
+	//Tạo mã khách hàng tự động
 	public String taoMaKH() {
 		String maKH = "";
 		double n = (Math.random()) * ((10000 - 1) + 1) + 1;
@@ -423,9 +422,8 @@ public class FrmKhachHang extends JPanel implements ActionListener {
 		} while (a != 0);
 		return maKH;
 	}
-	/*
-	Kiem tra du lieu nhap vao
-	 */
+	
+	//kt dữ liệu nhập
 	public boolean validData(){
 		if(txtTenKH.getText().equals("")){
 			JOptionPane.showMessageDialog(null, "Tên khách hàng không được để trống");

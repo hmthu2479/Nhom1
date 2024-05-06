@@ -295,11 +295,15 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 		    int selectedRow = tblPhieu.getSelectedRow();
 
 		    if (selectedRow != -1) {
+		    	// Lấy mã từ bảng
 		        String maPhieu = modelPhieu.getValueAt(selectedRow, 0).toString();
+		        // Tìm phiếu từ mã
 		        ArrayList<PhieuDatHang> phieuDatHangList = phieu_dao.timPhieu(maPhieu);
+		        // Tìm chi tiết phiếu từ mã
 		        List<ChiTietPhieuDatHang> chiTietPhieuList = ctphieu_dao.TimCTPhieu(maPhieu);
+		        // Tạo mã HD
 		        String maHoaDon = hd_dao.taoMaHD(maPhieu);
-
+		        // Tạo hóa đơn từ phiếu
 		        boolean success = hd_dao.themHoaDonTuPhieu(phieuDatHangList, chiTietPhieuList, maHoaDon);
 
 		        if (success) {
@@ -317,8 +321,6 @@ public class FrmPhieuDatHang extends JPanel implements ActionListener {
 		        }
 		    }
 		}
-
-
 
 
 		else if(o.equals(btnLamMoi)){

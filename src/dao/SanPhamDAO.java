@@ -130,7 +130,7 @@ public class SanPhamDAO {
         PreparedStatement statement = null;
         int n = 0;
         try {
-            String SQL = "UPDATE SanPham SET tenSanPham=?, soLuong=?, giaBan=?, maDanhMuc=?, maNhaCungCap=? , ke=? WHERE maSanPham=?";
+            String SQL = "UPDATE SanPham SET tenSanPham=?, soLuong=?, giaBan=?, maDanhMuc=?, maNhaCungCap=? , maKe=? WHERE maSanPham=?";
             statement = con.prepareStatement(SQL);
             statement.setString(1, SanPham.getTenSanPham());
             statement.setInt(2, SanPham.getSoLuong());
